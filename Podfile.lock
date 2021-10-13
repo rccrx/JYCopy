@@ -1,0 +1,16 @@
+PODS:
+  - RCTemplate (0.1.0)
+
+DEPENDENCIES:
+  - RCTemplate (from `./LocalPods/RCTemplate`)
+
+EXTERNAL SOURCES:
+  RCTemplate:
+    :path: "./LocalPods/RCTemplate"
+
+SPEC CHECKSUMS:
+  RCTemplate: ace09680ee54e17cef0b06466c2669ad4fb728fb
+
+PODFILE CHECKSUM: f7deb0f29b2c2a0e37b28ac5a168c9289bec745f
+
+COCOAPODS: 1.7.2
