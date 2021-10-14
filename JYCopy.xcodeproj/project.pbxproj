@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		51AFA96A27166B180062734E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51AFA96927166B180062734E /* AppDelegate.m */; };
-		51AFA96D27166B180062734E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51AFA96C27166B180062734E /* SceneDelegate.m */; };
 		51AFA97027166B180062734E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51AFA96F27166B180062734E /* ViewController.m */; };
-		51AFA97327166B180062734E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AFA97127166B180062734E /* Main.storyboard */; };
 		51AFA97527166B220062734E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AFA97427166B220062734E /* Assets.xcassets */; };
 		51AFA97827166B220062734E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AFA97627166B220062734E /* LaunchScreen.storyboard */; };
 		51AFA97B27166B220062734E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51AFA97A27166B220062734E /* main.m */; };
@@ -22,11 +20,8 @@
 		51AFA96527166B180062734E /* JYCopy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JYCopy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51AFA96827166B180062734E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		51AFA96927166B180062734E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		51AFA96B27166B180062734E /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		51AFA96C27166B180062734E /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		51AFA96E27166B180062734E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		51AFA96F27166B180062734E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		51AFA97227166B180062734E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		51AFA97427166B220062734E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51AFA97727166B220062734E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51AFA97927166B220062734E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,11 +73,8 @@
 			children = (
 				51AFA96827166B180062734E /* AppDelegate.h */,
 				51AFA96927166B180062734E /* AppDelegate.m */,
-				51AFA96B27166B180062734E /* SceneDelegate.h */,
-				51AFA96C27166B180062734E /* SceneDelegate.m */,
 				51AFA96E27166B180062734E /* ViewController.h */,
 				51AFA96F27166B180062734E /* ViewController.m */,
-				51AFA97127166B180062734E /* Main.storyboard */,
 				51AFA97427166B220062734E /* Assets.xcassets */,
 				51AFA97627166B220062734E /* LaunchScreen.storyboard */,
 				51AFA97927166B220062734E /* Info.plist */,
@@ -97,7 +89,6 @@
 				8F099D4BDDB0E8D3D2C45285 /* Pods-JYCopy.debug.xcconfig */,
 				3600A644F3B31712B16F4BF5 /* Pods-JYCopy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -161,7 +152,6 @@
 			files = (
 				51AFA97827166B220062734E /* LaunchScreen.storyboard in Resources */,
 				51AFA97527166B220062734E /* Assets.xcassets in Resources */,
-				51AFA97327166B180062734E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,21 +207,12 @@
 				51AFA97027166B180062734E /* ViewController.m in Sources */,
 				51AFA96A27166B180062734E /* AppDelegate.m in Sources */,
 				51AFA97B27166B220062734E /* main.m in Sources */,
-				51AFA96D27166B180062734E /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		51AFA97127166B180062734E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				51AFA97227166B180062734E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		51AFA97627166B220062734E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,7 +275,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -347,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -362,6 +343,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CKKWRYXW8F;
 				INFOPLIST_FILE = JYCopy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -380,6 +362,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CKKWRYXW8F;
 				INFOPLIST_FILE = JYCopy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
