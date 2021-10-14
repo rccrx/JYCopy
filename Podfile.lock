@@ -1,16 +1,21 @@
 PODS:
+  - RCMain (0.1.0)
   - RCTemplate (0.1.0)
 
 DEPENDENCIES:
+  - RCMain (from `./LocalPods/RCMain`)
   - RCTemplate (from `./LocalPods/RCTemplate`)
 
 EXTERNAL SOURCES:
+  RCMain:
+    :path: "./LocalPods/RCMain"
   RCTemplate:
     :path: "./LocalPods/RCTemplate"
 
 SPEC CHECKSUMS:
+  RCMain: ee500c1c6d21f5a53db88abdc72329a31039484b
   RCTemplate: ace09680ee54e17cef0b06466c2669ad4fb728fb
 
-PODFILE CHECKSUM: f7deb0f29b2c2a0e37b28ac5a168c9289bec745f
+PODFILE CHECKSUM: 0f28a8da012085a643f44ace036925ee6c48a4ab
 
 COCOAPODS: 1.7.2
