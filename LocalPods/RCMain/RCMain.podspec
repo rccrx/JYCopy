@@ -8,4 +8,5 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/rccrx/RCMain.git', :tag => s.version.to_s }
   s.ios.deployment_target = '10.0'
   s.source_files = 'Classes/**/*'
+  s.resource_bundles = { 'RCMain' => ['Assets/**/*'] }
 end

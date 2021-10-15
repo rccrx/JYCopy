@@ -1,21 +1,33 @@
 PODS:
+  - LookinServer (1.0.4)
   - RCMain (0.1.0)
   - RCTemplate (0.1.0)
+  - RCUtility (0.1.0)
 
 DEPENDENCIES:
+  - LookinServer
   - RCMain (from `./LocalPods/RCMain`)
   - RCTemplate (from `./LocalPods/RCTemplate`)
+  - RCUtility (from `./LocalPods/RCUtility`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - LookinServer
 
 EXTERNAL SOURCES:
   RCMain:
     :path: "./LocalPods/RCMain"
   RCTemplate:
     :path: "./LocalPods/RCTemplate"
+  RCUtility:
+    :path: "./LocalPods/RCUtility"
 
 SPEC CHECKSUMS:
-  RCMain: ee500c1c6d21f5a53db88abdc72329a31039484b
+  LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
+  RCMain: 683454d8596d668a9813975e0d87d051a180a541
   RCTemplate: ace09680ee54e17cef0b06466c2669ad4fb728fb
+  RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
 
-PODFILE CHECKSUM: 0f28a8da012085a643f44ace036925ee6c48a4ab
+PODFILE CHECKSUM: cc282ac1ec7bfcf7f88fe781d2fad3632c4504aa
 
 COCOAPODS: 1.7.2
