@@ -6,7 +6,6 @@
 //
 
 #import "RCMainTabBarController.h"
-#import "UIImage+Main.h"
 
 @interface RCMainTabBarController ()
 
@@ -34,7 +33,7 @@
 //        vc3.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"13" image:nil selectedImage:nil];
         UIViewController *vc4 = [UIViewController new];
         vc4.view.backgroundColor = UIColor.greenColor;
-        UIImage *image = [UIImage imageNamedInMainBundle:@"petal"];
+        UIImage *image = [UIImage rma_imageNamedInMainBundle:@"petal"];
         vc4.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"1234" image:image selectedImage:nil];
         UIViewController *vc5 = [UIViewController new];
         vc5.view.backgroundColor = UIColor.greenColor;
@@ -46,6 +45,14 @@
 //        self.tabBar.frame = CGRectMake(20, -20, 100, 100);
 //        self.tabBar.hidden = YES;
 //        [self.tabBar removeFromSuperview];
+        
+//        UIView *view = [[UIView alloc] initWithColor:UIColor.grayColor];
+        UIView *view = [UIView rut_viewWithBackgroundColor:UIColor.orangeColor];
+        view.backgroundColor = UIColor.rma_color818181;
+//        UIButton *view = [UIButton button
+        view.frame = CGRectMake(20, 50, 100, 200);
+//        view.backgroundColor = UIColor.magentaColor;
+        [self.view addSubview:view];
 //
     }
     return self;

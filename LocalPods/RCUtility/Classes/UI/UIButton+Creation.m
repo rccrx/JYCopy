@@ -9,4 +9,12 @@
 
 @implementation UIButton (Creation)
 
++ (instancetype)rut_buttonWithImage:(UIImage *)image selectedImage:(UIImage *)selectedImage target:(id)target action:(SEL)action {
+    UIButton *button = [[UIButton alloc] init];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setImage:selectedImage forState:UIControlStateSelected];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
 @end

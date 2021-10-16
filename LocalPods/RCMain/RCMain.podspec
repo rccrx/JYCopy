@@ -9,4 +9,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.source_files = 'Classes/**/*'
   s.resource_bundles = { 'RCMain' => ['Assets/**/*'] }
+  s.prefix_header_file = 'Classes/RCMain-prefix.pch'
+  s.public_header_files = 'Classes/Public/**/*.h'
+  
+  s.dependency 'RCUtility'
 end

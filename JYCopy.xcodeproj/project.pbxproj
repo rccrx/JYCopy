@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07E8B5C4C1A2F1BC270240C0 /* libPods-JYCopy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 991391423092645C1D94B8F8 /* libPods-JYCopy.a */; };
+		0E461910E0EF31CA4F63213F /* libPods-JYCopy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D48B780811647C90DDD6F24 /* libPods-JYCopy.a */; };
 		51AFA96A27166B180062734E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51AFA96927166B180062734E /* AppDelegate.m */; };
 		51AFA97027166B180062734E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51AFA96F27166B180062734E /* ViewController.m */; };
 		51AFA97527166B220062734E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AFA97427166B220062734E /* Assets.xcassets */; };
@@ -26,8 +26,8 @@
 		51AFA97727166B220062734E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51AFA97927166B220062734E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51AFA97A27166B220062734E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8D48B780811647C90DDD6F24 /* libPods-JYCopy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JYCopy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F099D4BDDB0E8D3D2C45285 /* Pods-JYCopy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JYCopy.debug.xcconfig"; path = "Target Support Files/Pods-JYCopy/Pods-JYCopy.debug.xcconfig"; sourceTree = "<group>"; };
-		991391423092645C1D94B8F8 /* libPods-JYCopy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JYCopy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E8B5C4C1A2F1BC270240C0 /* libPods-JYCopy.a in Frameworks */,
+				0E461910E0EF31CA4F63213F /* libPods-JYCopy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +45,7 @@
 		2A36B761DD7FA407F62EEA9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				991391423092645C1D94B8F8 /* libPods-JYCopy.a */,
+				8D48B780811647C90DDD6F24 /* libPods-JYCopy.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -103,7 +103,7 @@
 				51AFA96127166B180062734E /* Sources */,
 				51AFA96227166B180062734E /* Frameworks */,
 				51AFA96327166B180062734E /* Resources */,
-				21E356D6E99E882DD7F21A49 /* [CP] Copy Pods Resources */,
+				B2812275A9154319FF0DB67C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -120,6 +120,7 @@
 		51AFA95D27166B180062734E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = RC;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					51AFA96427166B180062734E = {
@@ -158,23 +159,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		21E356D6E99E882DD7F21A49 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JYCopy/Pods-JYCopy-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JYCopy/Pods-JYCopy-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JYCopy/Pods-JYCopy-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4AA96C17F56A298F0A742397 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -195,6 +179,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2812275A9154319FF0DB67C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JYCopy/Pods-JYCopy-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JYCopy/Pods-JYCopy-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JYCopy/Pods-JYCopy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

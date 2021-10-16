@@ -1,6 +1,7 @@
 PODS:
   - LookinServer (1.0.4)
-  - RCMain (0.1.0)
+  - RCMain (0.1.0):
+    - RCUtility
   - RCTemplate (0.1.0)
   - RCUtility (0.1.0)
 
@@ -24,7 +25,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
-  RCMain: 683454d8596d668a9813975e0d87d051a180a541
+  RCMain: 8120fe2a31245ffbd966de6d10404ccfee83f443
   RCTemplate: ace09680ee54e17cef0b06466c2669ad4fb728fb
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
 

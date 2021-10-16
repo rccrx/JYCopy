@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (Main)
 
 /** 在RCMain.bundle中的图片，不是指[NSBundle mainBundle] */
-+ (nullable UIImage *)imageNamedInMainBundle:(NSString *)name;
++ (nullable UIImage *)rma_imageNamedInMainBundle:(NSString *)name;
 
 @end
 

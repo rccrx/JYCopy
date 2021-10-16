@@ -9,7 +9,7 @@
 
 @implementation UIImage (Main)
 
-+ (NSBundle *)getRCMainBundle {
++ (NSBundle *)rma_getRCMainBundle {
     // 注意：这个类名必须是本模块即RCMain中包含的类
     NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"RCMainTabBarController")]; // 可以兼容Podfile使用和不使用”use_frameworks!“两种情况
     NSString *path = [bundle pathForResource:@"RCMain" ofType:@"bundle"];
@@ -17,8 +17,8 @@
     return rcmainBundle;
 }
 
-+ (UIImage *)imageNamedInMainBundle:(NSString *)name {
-    return [UIImage imageNamed:name inBundle:[self getRCMainBundle] compatibleWithTraitCollection:nil];
++ (UIImage *)rma_imageNamedInMainBundle:(NSString *)name {
+    return [UIImage imageNamed:name inBundle:[self rma_getRCMainBundle] compatibleWithTraitCollection:nil];
 }
 
 @end

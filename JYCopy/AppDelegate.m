@@ -6,7 +6,7 @@
 //
 
 #import "AppDelegate.h"
-#import "RCMainTabBarController.h"
+#import "RCMain.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    RCMainTabBarController *mainTBC = [[RCMainTabBarController alloc] init];
+    UIViewController *mainTBC = [RCMain getMainTabBarController];
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = mainTBC;
