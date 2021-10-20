@@ -9,9 +9,11 @@
 
 @implementation UIView (Creation)
 
-+ (instancetype)rut_viewWithBackgroundColor:(UIColor *)color {
++ (instancetype)rut_viewWithBackgroundColor:(UIColor *)color cornerRadius:(CGFloat)cornerRadius {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = color;
+    view.layer.cornerRadius = cornerRadius;
+    view.layer.masksToBounds = true;
     return view;
 }
 

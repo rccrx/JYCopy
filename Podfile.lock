@@ -1,6 +1,8 @@
 PODS:
   - LookinServer (1.0.4)
+  - Masonry (1.1.0)
   - RCMain (0.1.0):
+    - Masonry (~> 1.1.0)
     - RCUtility
   - RCTemplate (0.1.0)
   - RCUtility (0.1.0)
@@ -14,6 +16,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - LookinServer
+    - Masonry
 
 EXTERNAL SOURCES:
   RCMain:
@@ -25,7 +28,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
-  RCMain: 8120fe2a31245ffbd966de6d10404ccfee83f443
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  RCMain: 5aeeb00233d3d80abeaf325cd6a6ef4df739a6d6
   RCTemplate: ace09680ee54e17cef0b06466c2669ad4fb728fb
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
 

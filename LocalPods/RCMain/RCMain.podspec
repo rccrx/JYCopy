@@ -13,4 +13,5 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Classes/Public/**/*.h'
   
   s.dependency 'RCUtility'
+  s.dependency 'Masonry', '~> 1.1.0'
 end

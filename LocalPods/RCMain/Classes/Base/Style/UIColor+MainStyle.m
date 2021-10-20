@@ -9,6 +9,10 @@
 
 @implementation UIColor (MainStyle)
 
++ (UIColor *)rma_themeColor {
+    return RGB(0xF1385A);
+}
+
 + (UIColor *)rma_color818181 {
     return RGB(0x818181);
 }
