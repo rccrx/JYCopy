@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 主题色：F1385A */
 + (UIColor *)rma_themeColor;
 
-+ (UIColor *)rma_color818181;
++ (UIColor *)rma_color8C8C8C;
++ (UIColor *)rma_color181818;
++ (UIColor *)rma_color2F2F2F;
 
 @end
 

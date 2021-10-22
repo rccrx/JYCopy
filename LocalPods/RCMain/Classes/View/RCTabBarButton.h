@@ -1,19 +1,17 @@
 //
-//  RCTabBarItem.h
+//  RCTabBarButton.h
 //  RCMain
 //
-//  Created by crx on 2021/10/15.
+//  Created by crx on 2021/10/21.
 //
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RCTabBarItem : UIView
+@interface RCTabBarButton : UIControl
 
 - (instancetype)initWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage size:(CGSize)size;
-
-@property (nonatomic, assign) BOOL selected;
 
 @end
 

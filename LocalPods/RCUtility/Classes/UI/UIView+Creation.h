@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Creation)
 
++ (instancetype)rut_viewWithBackgroundColor:(UIColor *)color;
+
 + (instancetype)rut_viewWithBackgroundColor:(UIColor *)color cornerRadius:(CGFloat)cornerRadius;
 
 @end

@@ -1,29 +1,29 @@
 //
-//  RCTabBarItem.m
+//  RCTabBarButton.m
 //  RCMain
 //
-//  Created by crx on 2021/10/15.
+//  Created by crx on 2021/10/21.
 //
 
-#import "RCTabBarItem.h"
+#import "RCTabBarButton.h"
 
-@interface RCTabBarItem ()
+@interface RCTabBarButton ()
 
-@property (nonatomic, strong) UIButton *imgButton;
+@property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIView *lineView;
 
 @end
 
-@implementation RCTabBarItem
+@implementation RCTabBarButton
 
 - (instancetype)initWithTitle:(NSString *)title image:(nonnull UIImage *)image selectedImage:(nonnull UIImage *)selectedImage size:(CGSize)size {
     if (self = [super init]) {
         self.bounds = CGRectMake(0, 0, size.width, size.height);
         
-        self.imgButton = [UIButton rut_buttonWithImage:image selectedImage:selectedImage target:self action:@selector(imgButtonClicked:)];
-        [self addSubview:self.imgButton];
-        [self.imgButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.imgView = [[UIImageView alloc] initWithImage:image highlightedImage:selectedImage];
+        [self addSubview:self.imgView];
+        [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.equalTo(@30);
             make.centerX.equalTo(self);
             make.top.equalTo(self);
@@ -46,18 +46,14 @@
             make.centerX.equalTo(self);
         }];
         
-        self.selected = NO;
+        self.selected = YES;
     }
     return self;
 }
 
-- (void)imgButtonClicked:(UIButton *)button {
-    self.selected = !self.selected;
-}
-
 - (void)setSelected:(BOOL)selected {
-    _selected = selected;
-    self.imgButton.selected = selected;
+    [super setSelected:selected];
+    self.imgView.highlighted = selected;
     self.titleLabel.hidden = selected;
     self.lineView.hidden = !selected;
 }
