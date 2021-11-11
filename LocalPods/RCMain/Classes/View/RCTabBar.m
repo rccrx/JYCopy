@@ -51,6 +51,10 @@
 
 #pragma mark - Action
 - (void)tabBarButtonDidClicked:(UIControl<RCTabBarItemDelegate> *)sender {
+    if ([self.delegate respondsToSelector:@selector(tabBar:shouldSelectItem:)] && ![self.delegate tabBar:self shouldSelectItem:sender]) {
+        return;
+    }
+    
     self.selectedItem = sender;
     if ([self.delegate respondsToSelector:@selector(tabBar:didSelectItem:)]) {
         [self.delegate tabBar:self didSelectItem:sender];

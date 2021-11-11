@@ -17,8 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray<UIViewController *> *viewControllers;
 /** 设置的时候会将tabBar添加到RCTabBarController.view中，并将self设置为tabBar的delegate，但还需要手动设置约束 */
 @property (nonatomic, strong) RCTabBar *tabBar;
-@property (nonatomic, weak) UIViewController *selectedViewController;
+/** 推荐使用这个属性来选择当前显示视图 */
 @property (nonatomic, assign) NSUInteger selectedIndex;
+@property (nonatomic, weak) UIViewController *selectedViewController;
 @property (nonatomic, weak) id<RCTabBarControllerDelegate> delegate;
 
 /** 修改viewControllers的view的底部约束，默认情况下等于父视图即RCTabBarController.view的下边界。 */

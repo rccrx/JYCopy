@@ -8,11 +8,22 @@
 #import "RCMainTabBarController.h"
 #import "RCTabBarButton.h"
 
-@interface RCMainTabBarController () <RCTabBarDelegate>
+@interface RCMainTabBarController () <RCTabBarDelegate, RCTabBarControllerDelegate>
 
 @end
 
 @implementation RCMainTabBarController
+//- (BOOL)tabBarController:(RCTabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+//    NSLog(@"shousel:tbc=%@, vc=%@", tabBarController, viewController);
+//    if (viewController == tabBarController.viewControllers[1]) {
+////        return NO;
+//    }
+//    return YES;
+//}
+//
+//- (void)tabBarController:(RCTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+//    NSLog(@"dislel:tbc=%@, vc=%@", tabBarController, viewController);
+//}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -47,11 +58,16 @@
         vc6.view.backgroundColor = UIColor.systemPinkColor;
         
 //        self.viewControllers = @[vc1, vc2, vc3];
+        self.delegate = self;
         self.viewControllers = @[vc1, vc2, vc3, vc4, vc5, vc6];
 //        self.tabBar.frame = CGRectMake(20, -20, 100, 100);
 //        self.tabBar.hidden = YES;
 //        [self.tabBar removeFromSuperview];
-
+        self.selectedIndex = 2;
+//        self.selectedViewController = vc2;
+//        self.selectedViewController = [UIViewController new];
+//        self.selectedViewController = nil;
+        NSLog(@"selfvcs=%@, self.slelectecvc=%@, self.selecindx=%llu", self.viewControllers, self.selectedViewController, self.selectedIndex);
 #else
         RCTabBarButton *itm1 = [[RCTabBarButton alloc]
                                 initWithTitle:@"剪辑"
@@ -105,9 +121,11 @@
             make.height.width.equalTo(@100);
         }];
         
+        self.delegate = self;
         self.viewControllers = @[vc1, vc2, vc3];
         [self updateViewsBottomMargin:-60];
-        self.selectedViewController = vc3;
+//        self.selectedViewController = vc2;
+//        self.selectedIndex = 1;
 #endif
     }
     return self;

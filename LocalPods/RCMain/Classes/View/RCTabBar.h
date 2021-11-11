@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol RCTabBarDelegate<NSObject>
 
 @optional
+- (BOOL)tabBar:(RCTabBar *)tabBar shouldSelectItem:(UIControl<RCTabBarItemDelegate> *)item;
 - (void)tabBar:(RCTabBar *)tabBar didSelectItem:(UIControl<RCTabBarItemDelegate> *)item;
 
 @end
