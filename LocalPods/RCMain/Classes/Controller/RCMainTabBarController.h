@@ -9,11 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#if 0
-@interface RCMainTabBarController : UITabBarController
-#else
 @interface RCMainTabBarController : RCTabBarController
-#endif
 
 @end
 

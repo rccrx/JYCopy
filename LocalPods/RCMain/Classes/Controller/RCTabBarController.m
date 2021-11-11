@@ -65,7 +65,7 @@
 }
 
 #pragma mark - RCTabBarDelegate
-- (BOOL)tabBar:(RCTabBar *)tabBar shouldSelectItem:(UIControl<RCTabBarItemDelegate> *)item {
+- (BOOL)tabBar:(RCTabBar *)tabBar shouldSelectItem:(UIControl *)item {
     if ([self.delegate respondsToSelector:@selector(tabBarController:shouldSelectViewController:)]) {
         NSUInteger idx = [tabBar.items indexOfObject:item];
         if (idx < self.viewControllers.count) {
@@ -75,7 +75,7 @@
     return YES;
 }
 
-- (void)tabBar:(RCTabBar *)tabBar didSelectItem:(UIControl<RCTabBarItemDelegate> *)item {
+- (void)tabBar:(RCTabBar *)tabBar didSelectItem:(UIControl *)item {
     NSUInteger idx = [tabBar.items indexOfObject:item];
     self.selectedIndex = idx;
     

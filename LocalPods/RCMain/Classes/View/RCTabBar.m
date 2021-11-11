@@ -9,14 +9,14 @@
 
 @implementation RCTabBar
 
-- (void)setItems:(NSArray<UIControl<RCTabBarItemDelegate> *> *)items {
-    [self.items enumerateObjectsUsingBlock:^(UIControl<RCTabBarItemDelegate> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)setItems:(NSArray<UIControl *> *)items {
+    [self.items enumerateObjectsUsingBlock:^(UIControl * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
     }];
     
     _items = items;
     
-    [self.items enumerateObjectsUsingBlock:^(UIControl<RCTabBarItemDelegate> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.items enumerateObjectsUsingBlock:^(UIControl * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj addTarget:self action:@selector(tabBarButtonDidClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:obj];
         [obj mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -33,7 +33,7 @@
 
 - (void)setItemCenterXLRMargin:(CGFloat)itemCenterXLRMargin {
     _itemCenterXLRMargin = itemCenterXLRMargin;
-    [self.items enumerateObjectsUsingBlock:^(UIControl<RCTabBarItemDelegate> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.items enumerateObjectsUsingBlock:^(UIControl * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.mas_left).offset(self.itemCenterXLRMargin + self.itemSpacing * idx);
         }];
@@ -42,7 +42,7 @@
 
 - (void)setItemSpacing:(CGFloat)itemSpacing {
     _itemSpacing = itemSpacing;
-    [self.items enumerateObjectsUsingBlock:^(UIControl<RCTabBarItemDelegate> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.items enumerateObjectsUsingBlock:^(UIControl * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.mas_left).offset(self.itemCenterXLRMargin + self.itemSpacing * idx);
         }];
@@ -50,7 +50,7 @@
 }
 
 #pragma mark - Action
-- (void)tabBarButtonDidClicked:(UIControl<RCTabBarItemDelegate> *)sender {
+- (void)tabBarButtonDidClicked:(UIControl *)sender {
     if ([self.delegate respondsToSelector:@selector(tabBar:shouldSelectItem:)] && ![self.delegate tabBar:self shouldSelectItem:sender]) {
         return;
     }
@@ -62,7 +62,7 @@
 }
 
 #pragma mark - Setter & Getter
-- (void)setSelectedItem:(UIControl<RCTabBarItemDelegate> *)selectedItem {
+- (void)setSelectedItem:(UIControl *)selectedItem {
     if (![self.items containsObject:selectedItem]) {
         return;
     }
