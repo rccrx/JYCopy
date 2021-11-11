@@ -19,14 +19,17 @@ NS_ASSUME_NONNULL_BEGIN
 /** 第一个item的centerX距离父视图左边距，最后一个item的centerX距离父视图右边距 */
 @property (nonatomic, assign) CGFloat itemCenterXLRMargin;
 @property (nonatomic, assign) CGFloat itemSpacing;
+@property (nonatomic, weak) UIControl<RCTabBarItemDelegate> *selectedItem;
 
 @end
 
 
 
 @protocol RCTabBarDelegate<NSObject>
+
 @optional
 - (void)tabBar:(RCTabBar *)tabBar didSelectItem:(UIControl<RCTabBarItemDelegate> *)item;
+
 @end
 
 

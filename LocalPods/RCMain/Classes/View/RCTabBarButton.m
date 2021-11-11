@@ -46,7 +46,7 @@
             make.centerX.equalTo(self);
         }];
         
-        self.selected = YES;
+        self.selected = NO;
     }
     return self;
 }

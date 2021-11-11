@@ -5,11 +5,15 @@
 //  Created by crx on 2021/10/14.
 //
 
-#import <UIKit/UIKit.h>
+#import "RCTabBarController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if 0
 @interface RCMainTabBarController : UITabBarController
+#else
+@interface RCMainTabBarController : RCTabBarController
+#endif
 
 @end
 

@@ -25,6 +25,9 @@
             make.centerY.equalTo(self);
             make.centerX.equalTo(self.mas_left).offset(self.itemCenterXLRMargin + self.itemSpacing * idx);
         }];
+        if (idx == 0) {
+            self.selectedItem = obj;
+        }
     }];
 }
 
@@ -47,8 +50,23 @@
 }
 
 #pragma mark - Action
-- (void)tabBarButtonDidClicked:(UIControl *)sender {
-    sender.selected = !sender.selected;
+- (void)tabBarButtonDidClicked:(UIControl<RCTabBarItemDelegate> *)sender {
+    self.selectedItem = sender;
+    if ([self.delegate respondsToSelector:@selector(tabBar:didSelectItem:)]) {
+        [self.delegate tabBar:self didSelectItem:sender];
+    }
+}
+
+#pragma mark - Setter & Getter
+- (void)setSelectedItem:(UIControl<RCTabBarItemDelegate> *)selectedItem {
+    if (![self.items containsObject:selectedItem]) {
+        return;
+    }
+    if (_selectedItem != selectedItem) {
+        _selectedItem.selected = NO;
+        selectedItem.selected = YES;
+        _selectedItem = selectedItem;
+    }
 }
 
 @end
