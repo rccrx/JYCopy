@@ -3,8 +3,10 @@ PODS:
   - Masonry (1.1.0)
   - RCMain (0.1.0):
     - Masonry (~> 1.1.0)
+    - RCTemplate
     - RCUtility
-  - RCTemplate (0.1.0)
+  - RCTemplate (0.1.0):
+    - RCUtility
   - RCUtility (0.1.0)
 
 DEPENDENCIES:
@@ -29,8 +31,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  RCMain: 5aeeb00233d3d80abeaf325cd6a6ef4df739a6d6
-  RCTemplate: ace09680ee54e17cef0b06466c2669ad4fb728fb
+  RCMain: f612def19887d537a89cb047d7bbe3fa7fd0b5ee
+  RCTemplate: f45ccac9aa06bc0ff0b2edcffdc34e8d1b6afcfb
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
 
 PODFILE CHECKSUM: cc282ac1ec7bfcf7f88fe781d2fad3632c4504aa

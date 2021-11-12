@@ -12,6 +12,14 @@ Pod::Spec.new do |s|
   s.prefix_header_file = 'Classes/RCMain-prefix.pch'
   s.public_header_files = 'Classes/Public/**/*.h'
   
+  
+  # 业务模块
+  s.dependency 'RCTemplate'
+  
+  # 基础模块
   s.dependency 'RCUtility'
+  
+  # 依赖库
   s.dependency 'Masonry', '~> 1.1.0'
+  
 end

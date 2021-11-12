@@ -7,6 +7,7 @@
 
 #import "RCMainTabBarController.h"
 #import "RCTabBarButton.h"
+#import "RCTemplateViewController.h"
 
 @implementation RCMainTabBarController
 
@@ -49,8 +50,9 @@
         }];
         
         
-        UIViewController *vc1 = [UIViewController new];
-        vc1.view.backgroundColor = UIColor.whiteColor;
+        RCTemplateViewController *templateVC = [RCTemplateViewController new];
+        UINavigationController *templateNav = [[UINavigationController alloc] initWithRootViewController:templateVC];
+        
         UIViewController *vc2 = [UIViewController new];
         vc2.view.backgroundColor = UIColor.redColor;
         UIViewController *vc3 = [UIViewController new];
@@ -65,7 +67,7 @@
             make.height.width.equalTo(@100);
         }];
         
-        self.viewControllers = @[vc1, vc2, vc3];
+        self.viewControllers = @[templateNav, vc2, vc3];
         [self updateViewsBottomMargin:-60];
     }
     return self;

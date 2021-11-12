@@ -8,4 +8,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/rccrx/RCTemplate.git', :tag => s.version.to_s }
   s.ios.deployment_target = '10.0'
   s.source_files = 'Classes/**/*'
+  s.prefix_header_file = 'Classes/RCTemplate-prefix.pch'
+  
+  s.dependency 'RCUtility'
 end
