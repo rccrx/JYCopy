@@ -6,6 +6,7 @@ PODS:
     - RCTemplate
     - RCUtility
   - RCTemplate (0.1.0):
+    - Masonry (~> 1.1.0)
     - RCUtility
   - RCUtility (0.1.0)
 
@@ -32,7 +33,7 @@ SPEC CHECKSUMS:
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   RCMain: f612def19887d537a89cb047d7bbe3fa7fd0b5ee
-  RCTemplate: f45ccac9aa06bc0ff0b2edcffdc34e8d1b6afcfb
+  RCTemplate: 629fa1f91504b904fc5a5717d7ab4f4d67a92323
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
 
 PODFILE CHECKSUM: cc282ac1ec7bfcf7f88fe781d2fad3632c4504aa

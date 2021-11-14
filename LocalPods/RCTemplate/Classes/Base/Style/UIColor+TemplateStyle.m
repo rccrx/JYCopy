@@ -13,4 +13,8 @@
     return RGB(0x181818);
 }
 
++ (UIColor *)rte_color282828 {
+    return RGB(0x282828);
+}
+
 @end

@@ -67,8 +67,9 @@
             make.height.width.equalTo(@100);
         }];
         
-        self.viewControllers = @[templateNav, vc2, vc3];
+        self.viewControllers = @[vc2, templateNav, vc3];
         [self updateViewsBottomMargin:-60];
+        self.selectedIndex = 1;
     }
     return self;
 }

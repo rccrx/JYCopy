@@ -9,6 +9,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.source_files = 'Classes/**/*'
   s.prefix_header_file = 'Classes/RCTemplate-prefix.pch'
+  s.resource_bundles = { 'RCTemplate' => ['Assets/**/*'] }
   
   s.dependency 'RCUtility'
+  s.dependency 'Masonry', '~> 1.1.0'
 end
