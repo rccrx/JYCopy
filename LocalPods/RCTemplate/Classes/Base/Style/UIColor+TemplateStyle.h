@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (TemplateStyle)
 
++ (UIColor *)rte_backgroundColor;
+
 + (UIColor *)rte_color181818;
 + (UIColor *)rte_color282828;
 + (UIColor *)rte_colorFCCF14;

@@ -32,7 +32,8 @@
         [self addChildViewController:vc];
         [self.view addSubview:vc.view];
         [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.top.bottom.equalTo(self.view).offset(self.bottomMargin);
+            make.left.right.top.equalTo(self.view);
+            make.bottom.equalTo(self.view).offset(self.bottomMargin);
         }];
         [vc didMoveToParentViewController:self];
     }

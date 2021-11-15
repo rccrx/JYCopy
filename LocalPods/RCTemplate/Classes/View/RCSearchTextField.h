@@ -15,6 +15,8 @@ typedef NS_ENUM(NSInteger, RCTextFieldViewMode) {
     RCTextFieldViewModeWhileHasTextAndEditing  /**< 有文本且是编辑模式时 */
 };
 
+@protocol RCSearchTextFieldDelegate;
+
 @interface RCSearchTextField : UITextField
 
 /** 默认为RCTextFieldViewModeNone，表示使用rightViewMode；设置了这个属性之后，原本的rightViewMode会根据情况自动变化。 */
@@ -35,6 +37,7 @@ typedef NS_ENUM(NSInteger, RCTextFieldViewMode) {
 /** placeholder的位置，不设置或者CGRectZero则使用默认位置 */
 @property (nonatomic, assign) CGRect placeholderRect;
 @property (nonatomic, strong) UIColor *placeholderColor;
+@property (nonatomic, weak) id<RCSearchTextFieldDelegate> delegate;
 
 
 /**
@@ -43,6 +46,13 @@ typedef NS_ENUM(NSInteger, RCTextFieldViewMode) {
  */
 - (instancetype)initWithSearchIcon:(nullable UIImage *)searchIcon clearIcon:(nullable UIImage *)clearIcon;
 
+@end
+
+
+
+@protocol RCSearchTextFieldDelegate <NSObject>
+@optional
+- (void)searchTextFieldClearButtonClicked:(RCSearchTextField *)searchTextField;
 @end
 
 NS_ASSUME_NONNULL_END

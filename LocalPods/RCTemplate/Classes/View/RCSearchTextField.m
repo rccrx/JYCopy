@@ -122,6 +122,9 @@
 
 - (void)clearButtonDidClicked:(UIButton *)button {
     self.text = nil;
+    if ([self.delegate respondsToSelector:@selector(searchTextFieldClearButtonClicked:)]) {
+        [self.delegate searchTextFieldClearButtonClicked:self];
+    }
 }
 
 #pragma mark - Setter & Getter

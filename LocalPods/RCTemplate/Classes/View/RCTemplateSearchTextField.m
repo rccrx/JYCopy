@@ -22,8 +22,9 @@
 
 - (instancetype)initWithSearchIcon:(UIImage *)searchIcon clearIcon:(UIImage *)clearIcon {
     if (self = [super initWithSearchIcon:searchIcon clearIcon:clearIcon]) {
-        _searchIconWidth = searchIcon.size.width;
-        _clearIconWidth =  clearIcon.size.width;
+        self.searchIconWidth = searchIcon.size.width;
+        self.clearIconWidth =  clearIcon.size.width;
+        
         self.customRightViewMode = RCTextFieldViewModeWhileHasText;
         self.backgroundColor = UIColor.rte_color282828;
         self.tintColor = UIColor.rte_colorFCCF14;

@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = UIColor.rte_color181818;
+    self.view.backgroundColor = UIColor.rte_backgroundColor;
     
     self.searchTF = [[RCTemplateSearchTextField alloc] init];
     self.searchTF.placeholder = @"日常碎片记录";
