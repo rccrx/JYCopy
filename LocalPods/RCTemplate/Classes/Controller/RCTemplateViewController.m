@@ -50,6 +50,11 @@
     stf.textRect = stf.editingRect;
     stf.placeholderRect = stf.editingRect;
     
+    stf.tintColor = UIColor.rte_colorFCCF14;
+    stf.textColor = UIColor.whiteColor;
+    stf.font = Font_PFSC_R(14);
+    stf.placeholderColor = UIColor.rte_color8C8C8C;
+    
     UIButton *b = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
     [b addTarget:self action:@selector(ba) forControlEvents:UIControlEventTouchUpInside];
     b.backgroundColor = UIColor.redColor;

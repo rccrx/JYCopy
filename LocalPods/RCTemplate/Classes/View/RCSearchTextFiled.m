@@ -139,4 +139,19 @@
     }
 }
 
+- (void)setPlaceholder:(NSString *)placeholder {
+    [super setPlaceholder:placeholder];
+    if (self.placeholderColor) {
+        NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: self.placeholderColor}];
+        self.attributedPlaceholder = attStr;
+    }
+}
+
+- (void)setPlaceholderColor:(UIColor *)placeholderColor {
+    _placeholderColor = placeholderColor;
+    if (self.placeholder.length != 0) {
+        self.placeholder = self.placeholder;
+    }
+}
+
 @end

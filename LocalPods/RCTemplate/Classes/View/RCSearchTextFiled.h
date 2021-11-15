@@ -28,12 +28,13 @@ typedef NS_ENUM(NSInteger, RCTextFieldViewMode) {
  * 即编辑文字然后退出编辑模式或者一开始设置text时的文字位置，
  * 不设置或者CGRectZero则使用默认位置。
  * 注意：textRect的origin.y和size.height设置会被忽视，而保持[super textRectForBounds:bounds]中获得的rect的y和height。
- *  */
+ */
 @property (nonatomic, assign) CGRect textRect;
 /** 编辑模式时文字的位置，不设置或者CGRectZero则使用默认位置 */
 @property (nonatomic, assign) CGRect editingRect;
 /** placeholder的位置，不设置或者CGRectZero则使用默认位置 */
 @property (nonatomic, assign) CGRect placeholderRect;
+@property (nonatomic, strong) UIColor *placeholderColor;
 
 
 /**

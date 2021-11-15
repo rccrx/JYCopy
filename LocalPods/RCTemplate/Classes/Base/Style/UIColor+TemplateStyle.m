@@ -17,4 +17,12 @@
     return RGB(0x282828);
 }
 
++ (UIColor *)rte_colorFCCF14 {
+    return RGB(0xFCCF14);
+}
+
++ (UIColor *)rte_color8C8C8C {
+    return RGB(0x8C8C8C);
+}
+
 @end

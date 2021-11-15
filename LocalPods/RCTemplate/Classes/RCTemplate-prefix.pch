@@ -6,6 +6,7 @@
 #import "RCColorMacro.h"
 #import "UIButton+Creation.h"
 #import "UIImageView+Creation.h"
+#import "RCFontMacro.h"
 
 // 依赖库
 #import "Masonry.h"
