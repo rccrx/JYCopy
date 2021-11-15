@@ -1,13 +1,13 @@
 //
-//  RCSearchTextFiled.m
+//  RCSearchTextField.m
 //  RCTemplate
 //
 //  Created by crx on 2021/11/14.
 //
 
-#import "RCSearchTextFiled.h"
+#import "RCSearchTextField.h"
 
-@implementation RCSearchTextFiled
+@implementation RCSearchTextField
 #pragma mark - Life Cycle & Override
 - (instancetype)initWithSearchIcon:(UIImage *)searchIcon clearIcon:(UIImage *)clearIcon {
     if (self = [super init]) {

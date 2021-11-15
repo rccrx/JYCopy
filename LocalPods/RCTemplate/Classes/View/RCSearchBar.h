@@ -8,11 +8,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@class RCSearchTextFiled;
+@class RCSearchTextField;
 
 @interface RCSearchBar : UIView
 
-@property (nonatomic, strong) RCSearchTextFiled *searchTextField;
+/** 设置的时候会将searchTextField添加到RCSearchBar中，但还需要手动设置约束 */
+@property (nonatomic, strong) RCSearchTextField *searchTextField;
+/** 设置的时候会将cancelButton添加到RCSearchBar中，但还需要手动设置约束 */
 @property (nonatomic, strong) UIButton *cancelButton;
 
 @end

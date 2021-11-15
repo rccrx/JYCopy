@@ -1,5 +1,5 @@
 //
-//  RCSearchTextFiled.h
+//  RCSearchTextField.h
 //  RCTemplate
 //
 //  Created by crx on 2021/11/14.
@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, RCTextFieldViewMode) {
     RCTextFieldViewModeWhileHasTextAndEditing  /**< 有文本且是编辑模式时 */
 };
 
-@interface RCSearchTextFiled : UITextField
+@interface RCSearchTextField : UITextField
 
 /** 默认为RCTextFieldViewModeNone，表示使用rightViewMode；设置了这个属性之后，原本的rightViewMode会根据情况自动变化。 */
 @property (nonatomic, assign) RCTextFieldViewMode customRightViewMode;

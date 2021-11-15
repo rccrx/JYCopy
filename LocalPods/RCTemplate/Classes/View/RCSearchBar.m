@@ -6,16 +6,18 @@
 //
 
 #import "RCSearchBar.h"
-#import "RCSearchTextFiled.h"
+#import "RCSearchTextField.h"
 
 @implementation RCSearchBar
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)setSearchTextField:(RCSearchTextField *)searchTextField {
+    _searchTextField = searchTextField;
+    [self addSubview:self.searchTextField];
 }
-*/
+
+- (void)setCancelButton:(UIButton *)cancelButton {
+    _cancelButton = cancelButton;
+    [self addSubview:self.cancelButton];
+}
 
 @end
