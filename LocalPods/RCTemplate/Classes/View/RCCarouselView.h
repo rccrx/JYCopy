@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray<UIImage *> *images;
 /** 设置时会自动添加到self中，但还需要手动设置约束 */
 @property (nonatomic, strong) UIPageControl *pageControl;
+/** 启动或者暂停自动滑动（当本视图从父视图中移除时会停止滑动。） */
+@property (nonatomic, assign) BOOL enableAutoslide;
+/** 要在enableAutoslide设置为YES之前设置才生效，否则使用默认值 */
+@property (nonatomic, assign) NSTimeInterval timeInterval;
 
 /**
  * @param imageEdgeInsets 图片距离scrollView的边源边距

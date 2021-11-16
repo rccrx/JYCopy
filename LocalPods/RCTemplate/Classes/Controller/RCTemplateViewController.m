@@ -51,6 +51,7 @@
     CGFloat carouselWidth = ScreenWidth;
     CGFloat carouselHeight = 80;
     self.carouselView = [[RCTemplateCarouselView alloc] initWithImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 15) viewWidth:carouselWidth viewHeight:carouselHeight];
+    self.carouselView.enableAutoslide = YES;
     [self.view addSubview:self.carouselView];
     [self.carouselView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
