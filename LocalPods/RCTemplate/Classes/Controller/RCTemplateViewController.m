@@ -8,16 +8,27 @@
 #import "RCTemplateViewController.h"
 #import "RCTemplateSearchTextField.h"
 #import "RCTemplateSearchController.h"
+#import "RCTemplateCarouselView.h"
 
 @interface RCTemplateViewController ()
 @property (nonatomic, strong) RCTemplateSearchTextField *searchTF;
+@property (nonatomic, strong) RCTemplateCarouselView *carouselView;
 @end
 
 @implementation RCTemplateViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
+#pragma mark - UI
+- (void)setupUI {
     self.view.backgroundColor = UIColor.rte_backgroundColor;
     
     self.searchTF = [[RCTemplateSearchTextField alloc] init];
@@ -35,18 +46,27 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(searchTextFieldDidTapped:)];
     [self.searchTF addGestureRecognizer:tap];
+    
+    
+    CGFloat carouselWidth = ScreenWidth;
+    CGFloat carouselHeight = 80;
+    self.carouselView = [[RCTemplateCarouselView alloc] initWithImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 15) viewWidth:carouselWidth viewHeight:carouselHeight];
+    [self.view addSubview:self.carouselView];
+    [self.carouselView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.width.equalTo(@(carouselWidth));
+        make.top.equalTo(self.searchTF.mas_bottom).offset(10);
+        make.height.equalTo(@(carouselHeight));
+    }];
+    self.carouselView.images = @[[UIImage rte_imageNamedInTemplateBundle:@"search"], [UIImage rte_imageNamedInTemplateBundle:@"clear"], [UIImage rte_imageNamedInTemplateBundle:@"arrow_right"]];
 }
 
+#pragma mark - Action
 - (void)searchTextFieldDidTapped:(UITapGestureRecognizer *)tap {
     RCTemplateSearchController *vc = [[RCTemplateSearchController alloc] init];
     vc.placeholder = self.searchTF.placeholder;
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:NO completion:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 @end

@@ -26,7 +26,7 @@
         [vc removeFromParentViewController];
     }
     
-    _viewControllers = viewControllers;
+    _viewControllers = [viewControllers copy];
     
     for (UIViewController *vc in self.viewControllers) {
         [self addChildViewController:vc];
