@@ -2,14 +2,18 @@
 //  RCPageControl.h
 //  RCTemplate
 //
-//  Created by crx on 2021/11/16.
+//  Created by crx on 2021/11/17.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RCPageControl : UIView
+@protocol RCPageControl <NSObject>
+
+@required
+@property (nonatomic, assign) NSInteger numberOfPages;
+@property (nonatomic, assign) NSInteger currentPage;
 
 @end
 

@@ -9,13 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//@protocol RCPageControlDelegate;
+@protocol RCPageControl;
 
 @interface RCCarouselView : UIView
 
 @property (nonatomic, copy) NSArray<UIImage *> *images;
 /** 设置时会自动添加到self中，但还需要手动设置约束 */
-@property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) UIView<RCPageControl> *pageControl;
 /** 启动或者暂停自动滑动（当本视图从父视图中移除时会停止滑动。） */
 @property (nonatomic, assign) BOOL enableAutoslide;
 /** 要在enableAutoslide设置为YES之前设置才生效，否则使用默认值 */
@@ -29,11 +29,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithImageEdgeInsets:(UIEdgeInsets)imageEdgeInsets viewWidth:(CGFloat)viewWidth viewHeight:(CGFloat)viewHeight;
 
 @end
-
-
-
-//@protocol RCPageControlDelegate <NSObject>
-//
-//@end
 
 NS_ASSUME_NONNULL_END

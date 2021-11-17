@@ -6,6 +6,7 @@
 //
 
 #import "RCCarouselView.h"
+#import "RCPageControl.h"
 
 @interface RCCarouselView () <UIScrollViewDelegate>
 
@@ -82,11 +83,13 @@
     self.scrollView.contentSize = CGSizeMake(self.scrollViewWidth * count, self.scrollViewHeight);
     self.scrollView.contentOffset = CGPointMake(self.scrollViewWidth, 0);
     self.pageControl.hidden = NO;
+    self.pageControl.numberOfPages = self.imageCount;
     self.pageControl.currentPage = [self getPageControlCurrentPageWithScrollViewContentOffset:self.scrollView.contentOffset];
 }
 
-- (void)setPageControl:(UIPageControl *)pageControl {
+- (void)setPageControl:(UIView<RCPageControl> *)pageControl {
     _pageControl = pageControl;
+    self.pageControl.numberOfPages = self.imageCount;
     [self addSubview:self.pageControl];
 }
 
