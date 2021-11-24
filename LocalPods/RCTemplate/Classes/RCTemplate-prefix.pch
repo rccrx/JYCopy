@@ -9,6 +9,7 @@
 #import "RCFontMacro.h"
 #import "RCDeviceMacro.h"
 #import "UIView+Creation.h"
+#import "UILabel+Creation.h"
 
 // 依赖库
 #import "Masonry.h"

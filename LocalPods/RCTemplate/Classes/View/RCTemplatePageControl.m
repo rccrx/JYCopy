@@ -62,13 +62,13 @@
     _numberOfPages = numberOfPages;
     
     CGFloat indicatorWH = [self.class indicatorWH];
-    CGFloat indicatorCenterXSpace = [self.class indicatorCenterXSpace];
+    CGFloat indicatorCenterXSpacing = [self.class indicatorCenterXSpacing];
     CGFloat centerIdx = (self.numberOfPages - 1) * 0.5; // 比如3个page时1是中心索引值；4个page时1.5是中心索引值
     for (int i = 0; i < self.numberOfPages; i++) {
         RCTemplatePageControlIndicator *indicatorView = [[RCTemplatePageControlIndicator alloc] initWithCornerRadius:indicatorWH * 0.5];
         [self addSubview:indicatorView];
         [indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self).offset((i - centerIdx) * indicatorCenterXSpace);
+            make.centerX.equalTo(self).offset((i - centerIdx) * indicatorCenterXSpacing);
             make.centerY.equalTo(self);
             make.width.height.equalTo(@(indicatorWH));
         }];
@@ -98,7 +98,7 @@
     return 5;
 }
 
-+ (CGFloat)indicatorCenterXSpace {
++ (CGFloat)indicatorCenterXSpacing {
     return 15;
 }
 

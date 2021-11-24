@@ -9,6 +9,10 @@
 
 @implementation UIColor (TemplateStyle)
 
++ (UIColor *)rte_themeColor {
+    return RGB(0xF1385A);
+}
+
 + (UIColor *)rte_backgroundColor {
     return UIColor.rte_color181818;
 }

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCTemplatePageControl : UIView <RCPageControl>
 
 + (CGFloat)indicatorWH;
-+ (CGFloat)indicatorCenterXSpace;
++ (CGFloat)indicatorCenterXSpacing;
 
 @end
 

@@ -9,8 +9,9 @@
 #import "RCTemplateSearchTextField.h"
 #import "RCTemplateSearchController.h"
 #import "RCTemplateCarouselView.h"
+#import "RCScrollTabBar.h"
 
-@interface RCTemplateViewController ()
+@interface RCTemplateViewController () <RCScrollTabBarDelegate>
 @property (nonatomic, strong) RCTemplateSearchTextField *searchTF;
 @property (nonatomic, strong) RCTemplateCarouselView *carouselView;
 @end
@@ -60,6 +61,19 @@
         make.height.equalTo(@(carouselHeight));
     }];
     self.carouselView.images = @[[UIImage rte_imageNamedInTemplateBundle:@"search"], [UIImage rte_imageNamedInTemplateBundle:@"clear"], [UIImage rte_imageNamedInTemplateBundle:@"arrow_right"]];
+    
+    CGFloat barHeight = 50;
+    RCScrollTabBar *scrollTabBar = [[RCScrollTabBar alloc] init];
+    NSArray *titles = @[@"推荐", @"卡点", @"日常碎片", @"玩法", @"旅行", @"纪念日", @"Vlog", @"萌娃"];
+    [scrollTabBar setItemTitles:titles barHeight:barHeight];
+    scrollTabBar.delegate = self;
+    [self.view addSubview:scrollTabBar];
+    [scrollTabBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(@(barHeight));
+        make.top.equalTo(self.view).offset(200);
+    }];
+    scrollTabBar.layer.borderWidth = 1;
 }
 
 #pragma mark - Action
@@ -70,4 +84,8 @@
     [self presentViewController:vc animated:NO completion:nil];
 }
 
+#pragma mark - RCScrollTabBarDelegate
+- (void)scrollTabBar:(RCScrollTabBar *)scrollTabBar didSelectItem:(NSUInteger)selectedIndex {
+    NSLog(@"选中：%lu", selectedIndex);
+}
 @end
