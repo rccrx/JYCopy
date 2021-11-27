@@ -10,22 +10,34 @@
 #import "RCTemplateSearchController.h"
 #import "RCTemplateCarouselView.h"
 #import "RCScrollTabBar.h"
+#import "RCTemplateCollectionViewController.h"
 
-@interface RCTemplateViewController () <RCScrollTabBarDelegate>
+@interface RCTemplateViewController () <RCScrollTabBarDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) RCTemplateSearchTextField *searchTF;
 @property (nonatomic, strong) RCTemplateCarouselView *carouselView;
+@property (nonatomic, strong) RCScrollTabBar *scrollTabBar;
+@property (nonatomic, strong) UIScrollView *templateScrollView;
+
+/** 存储显示在templateScrollView中的子视图控制器，以index为key */
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, RCTemplateCollectionViewController *> *childVCDict;
 @end
 
 @implementation RCTemplateViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupData];
     [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+}
+
+#pragma mark - Data
+- (void)setupData {
+    self.childVCDict = [ NSMutableDictionary dictionary];
 }
 
 #pragma mark - UI
@@ -63,17 +75,32 @@
     self.carouselView.images = @[[UIImage rte_imageNamedInTemplateBundle:@"search"], [UIImage rte_imageNamedInTemplateBundle:@"clear"], [UIImage rte_imageNamedInTemplateBundle:@"arrow_right"]];
     
     CGFloat barHeight = 50;
-    RCScrollTabBar *scrollTabBar = [[RCScrollTabBar alloc] init];
+    self.scrollTabBar = [[RCScrollTabBar alloc] init];
     NSArray *titles = @[@"推荐", @"卡点", @"日常碎片", @"玩法", @"旅行", @"纪念日", @"Vlog", @"萌娃"];
-    [scrollTabBar setItemTitles:titles barHeight:barHeight];
-    scrollTabBar.delegate = self;
-    [self.view addSubview:scrollTabBar];
-    [scrollTabBar mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.scrollTabBar setItemTitles:titles barHeight:barHeight];
+    self.scrollTabBar.delegate = self;
+    [self.view addSubview:self.scrollTabBar];
+    [self.scrollTabBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.equalTo(@(barHeight));
-        make.top.equalTo(self.view).offset(200);
+        make.top.equalTo(self.carouselView.mas_bottom).offset(5);
     }];
-    scrollTabBar.layer.borderWidth = 1;
+    
+    CGFloat templateSVWidth = ScreenWidth;
+    self.templateScrollView = [[UIScrollView alloc] init];
+    self.templateScrollView.delegate = self;
+    self.templateScrollView.pagingEnabled = YES;
+    self.templateScrollView.contentSize = CGSizeMake(templateSVWidth * titles.count, 1);
+    self.templateScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:self.templateScrollView];
+    [self.templateScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.width.equalTo(@(templateSVWidth));
+        make.top.equalTo(self.scrollTabBar.mas_bottom);
+        make.bottom.equalTo(self.view);
+    }];
+    
+    [self addChildViewControllerIfNeededWithIndex:0];
 }
 
 #pragma mark - Action
@@ -84,8 +111,56 @@
     [self presentViewController:vc animated:NO completion:nil];
 }
 
+#pragma mark - Private
+/** 如果这个index的vc已经添加则不用再添加 */
+- (void)addChildViewControllerIfNeededWithIndex:(NSUInteger)index {
+    RCTemplateCollectionViewController *vc = self.childVCDict[@(index)];
+    if (vc) {
+        return;
+    }
+    
+    vc = [RCTemplateCollectionViewController new];
+    [self addChildViewController:vc];
+    CGFloat templateSVWidth = CGRectGetWidth(self.templateScrollView.frame);
+    CGFloat templateSVHeight = CGRectGetHeight(self.templateScrollView.frame);
+    vc.view.frame = CGRectMake(templateSVWidth * index, 0, templateSVWidth, templateSVHeight);
+    [self.templateScrollView addSubview:vc.view];
+    [vc didMoveToParentViewController:self];
+    
+    self.childVCDict[@(index)] = vc;
+}
+
 #pragma mark - RCScrollTabBarDelegate
 - (void)scrollTabBar:(RCScrollTabBar *)scrollTabBar didSelectItem:(NSUInteger)selectedIndex {
-    NSLog(@"选中：%lu", selectedIndex);
+    CGFloat templateSVWidth = CGRectGetWidth(self.templateScrollView.frame);
+    [self.templateScrollView scrollRectToVisible:CGRectMake(selectedIndex * templateSVWidth, 0, templateSVWidth, 1) animated:NO];
+    [self addChildViewControllerIfNeededWithIndex:selectedIndex];
 }
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // 处理手势滑动的情况（不能处理点击tab的情况，点击tab之后调用这个协议方法时currentIdx已经是目标idx）
+    CGFloat templateSVWidth = CGRectGetWidth(self.templateScrollView.frame);
+    NSUInteger currentIdx = self.scrollTabBar.selectedIndex;
+    if (scrollView.contentOffset.x > templateSVWidth * currentIdx) {
+        NSUInteger nextIdx = currentIdx + 1;
+        if (nextIdx >= self.scrollTabBar.tabCount) {
+            return;
+        }
+        [self addChildViewControllerIfNeededWithIndex:nextIdx]; // 如果视图已经添加则调用这个方法相当于空操作
+        if (scrollView.contentOffset.x > templateSVWidth * (currentIdx + 0.5)) {
+            [self.scrollTabBar setSelectedIndex:nextIdx animated:YES];
+        }
+    } else if (scrollView.contentOffset.x < templateSVWidth * currentIdx) {
+        NSInteger nextIdx = currentIdx - 1;
+        if (nextIdx < 0) {
+            return;
+        }
+        [self addChildViewControllerIfNeededWithIndex:nextIdx];
+        if (scrollView.contentOffset.x < templateSVWidth * (currentIdx - 0.5)) {
+            [self.scrollTabBar setSelectedIndex:nextIdx animated:YES];
+        }
+    }
+}
+
 @end

@@ -87,7 +87,7 @@
     self.scrollView.contentSize = CGSizeMake(itemX - itemSpacing + itemMarginLR, barHeight);
     
     CGRect indicatorFrame = self.indicatorView.frame;
-    CGFloat indicatorBottom = 4;
+    CGFloat indicatorBottom = 7;
     indicatorFrame.origin.y = barHeight - CGRectGetHeight(indicatorFrame) - indicatorBottom;
     self.indicatorView.frame = indicatorFrame;
     
@@ -126,18 +126,22 @@
         indicatorFrame.origin.x = CGRectGetMidX(currentSelectedItem.frame) - CGRectGetWidth(indicatorFrame) * 0.5;
         self.indicatorView.frame = indicatorFrame;
     }];
+    
+    CGFloat scrollWidth = CGRectGetWidth(self.scrollView.frame); // 由于scrollView是使用约束，所以frame要在视图显示之后才生效，按钮点击时frame已经设置好了
+    CGRect rect = self.items[self.selectedIndex].frame;
+    rect.origin.x = CGRectGetMidX(rect) - scrollWidth * 0.5;
+    rect.size.width = scrollWidth;
+    [self.scrollView scrollRectToVisible:rect animated:YES];
+}
+
+- (NSUInteger)tabCount {
+    return self.items.count;
 }
 
 #pragma mark - Action
 - (void)itemDidClicked:(RCScrollTabBarItem *)item {
     NSUInteger idx = [self.items indexOfObject:item];
     [self setSelectedIndex:idx animated:YES];
-    
-    CGFloat scrollWidth = CGRectGetWidth(self.scrollView.frame); // 由于scrollView是使用约束，所以frame要在视图显示之后才生效，按钮点击时frame已经设置好了
-    CGRect rect = item.frame;
-    rect.origin.x = CGRectGetMidX(rect) - scrollWidth * 0.5;
-    rect.size.width = scrollWidth;
-    [self.scrollView scrollRectToVisible:rect animated:YES];
     
     if ([self.delegate respondsToSelector:@selector(scrollTabBar:didSelectItem:)]) {
         [self.delegate scrollTabBar:self didSelectItem:idx];
