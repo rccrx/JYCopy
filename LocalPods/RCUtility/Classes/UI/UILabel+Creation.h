@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)rut_labelWithText:(NSString *)text textColor:(UIColor *)textColor font:(UIFont *)font textAlignment:(NSTextAlignment)textAlignment;
 
++ (instancetype)rut_labelWithTextColor:(UIColor *)textColor font:(UIFont *)font textAlignment:(NSTextAlignment)textAlignment cornerRadius:(CGFloat)cornerRadius;
+
++ (instancetype)rut_labelWithTextColor:(UIColor *)textColor font:(UIFont *)font;
+
 @end
 
 NS_ASSUME_NONNULL_END

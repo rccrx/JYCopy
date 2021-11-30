@@ -28,17 +28,19 @@
     return self;
 }
 
+#pragma mark - Override
 - (void)prepareLayout {
     [super prepareLayout];
     
     [self.cachedAttributes removeAllObjects];
     self.contentBounds = CGRectMake(0, 0, CGRectGetWidth(self.collectionView.bounds), CGRectGetHeight(self.collectionView.bounds));
     
-    NSUInteger count = [self.collectionView numberOfItemsInSection:0];
-    CGFloat itemWidth = (CGRectGetWidth(self.collectionView.bounds) - self.sectionInset.left - self.sectionInset.right - self.interitemSpacing) * 0.5;
-    if (itemWidth <= 0) {
+    if (self.itemWidth <= 0) {
         return;
     }
+    
+    NSUInteger count = [self.collectionView numberOfItemsInSection:0];
+    CGFloat itemWidth = self.itemWidth;
     CGFloat leftItemX = self.sectionInset.left;
     self.leftItemX = leftItemX;
     CGFloat rightItemX = self.sectionInset.left + itemWidth + self.interitemSpacing;
@@ -121,6 +123,7 @@
     return !CGSizeEqualToSize(newBounds.size, self.collectionView.bounds.size);
 }
 
+#pragma mark - Private
 /** 使用二份查找来搜索cachedAttributes中第一个匹配rect的index，-1表示没有找到 */
 - (NSInteger)binarySearchCachedAttributesInRect:(CGRect)rect startIndex:(NSUInteger)start endIndex:(NSUInteger)end {
     if (end < start) {
@@ -139,6 +142,10 @@
             return [self binarySearchCachedAttributesInRect:rect startIndex:mid + 1 endIndex:end];
         }
     }
+}
+
+- (CGFloat)itemWidth {
+    return (CGRectGetWidth(self.collectionView.bounds) - self.sectionInset.left - self.sectionInset.right - self.interitemSpacing) * 0.5;
 }
 
 @end

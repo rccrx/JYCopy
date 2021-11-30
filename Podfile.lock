@@ -1,16 +1,18 @@
 PODS:
   - LookinServer (1.0.4)
   - Masonry (1.1.0)
-  - MJRefresh (3.7.2)
   - RCMain (0.1.0):
     - Masonry (~> 1.1.0)
     - RCTemplate
     - RCUtility
   - RCTemplate (0.1.0):
     - Masonry (~> 1.1.0)
-    - MJRefresh (~> 3.7.2)
     - RCUtility
+    - SDWebImage (~> 5.12.0)
   - RCUtility (0.1.0)
+  - SDWebImage (5.12.0):
+    - SDWebImage/Core (= 5.12.0)
+  - SDWebImage/Core (5.12.0)
 
 DEPENDENCIES:
   - LookinServer
@@ -22,7 +24,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - LookinServer
     - Masonry
-    - MJRefresh
+    - SDWebImage
 
 EXTERNAL SOURCES:
   RCMain:
@@ -35,10 +37,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
   RCMain: f612def19887d537a89cb047d7bbe3fa7fd0b5ee
-  RCTemplate: aba5c79f5f7040ac0c4c84802b5a284e887f937f
+  RCTemplate: d57029c4841a877d102216ea2a517d8dadc0cfcb
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
+  SDWebImage: 4ea20cca2986adc5aacde07aa686742fd4c67a37
 
 PODFILE CHECKSUM: cc282ac1ec7bfcf7f88fe781d2fad3632c4504aa
 

@@ -14,7 +14,7 @@
 @implementation RCScrollTabBarItem
 - (instancetype)init {
     if (self = [super init]) {
-        [self setTitleColor:UIColor.rte_color8C8C8C forState:UIControlStateNormal];
+        [self setTitleColor:UIColor.rte_colorA2A2A2 forState:UIControlStateNormal];
         [self setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
         self.selected = NO;
     }

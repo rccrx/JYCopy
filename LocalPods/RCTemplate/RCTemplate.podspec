@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   
   s.dependency 'RCUtility'
   s.dependency 'Masonry', '~> 1.1.0'
-  s.dependency 'MJRefresh', '~> 3.7.2'
+  s.dependency 'SDWebImage', '~> 5.12.0'
 end

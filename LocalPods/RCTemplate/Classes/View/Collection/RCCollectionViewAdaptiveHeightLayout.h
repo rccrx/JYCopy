@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat interitemSpacing;
 /** 这个布局只有一个section */
 @property (nonatomic, assign) UIEdgeInsets sectionInset;
+@property (nonatomic, assign, readonly) CGFloat itemWidth;
 
 @end
 
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol RCCollectionViewDelegateAdaptiveHeightLayout <UICollectionViewDelegate>
 
 @required
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout heightForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(RCCollectionViewAdaptiveHeightLayout *)collectionViewLayout heightForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

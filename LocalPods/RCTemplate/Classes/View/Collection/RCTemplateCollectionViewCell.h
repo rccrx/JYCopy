@@ -9,7 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCTemplateModel;
+
 @interface RCTemplateCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, strong) RCTemplateModel *data;
+
++ (CGFloat)getCellHeightWithData:(RCTemplateModel *)data cellWidth:(CGFloat)cellWidth;
 
 @end
 

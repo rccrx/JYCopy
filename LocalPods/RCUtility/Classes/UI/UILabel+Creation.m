@@ -18,4 +18,21 @@
     return label;
 }
 
++ (instancetype)rut_labelWithTextColor:(UIColor *)textColor font:(UIFont *)font textAlignment:(NSTextAlignment)textAlignment cornerRadius:(CGFloat)cornerRadius {
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = textColor;
+    label.font = font;
+    label.textAlignment = textAlignment;
+    label.layer.cornerRadius = cornerRadius;
+    label.layer.masksToBounds = YES;
+    return label;
+}
+
++ (instancetype)rut_labelWithTextColor:(UIColor *)textColor font:(UIFont *)font {
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = textColor;
+    label.font = font;
+    return label;
+}
+
 @end
