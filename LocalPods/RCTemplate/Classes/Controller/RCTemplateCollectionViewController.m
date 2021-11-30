@@ -8,6 +8,7 @@
 #import "RCTemplateCollectionViewController.h"
 #import "RCTemplateCollectionViewCell.h"
 #import "RCCollectionViewAdaptiveHeightLayout.h"
+#import "MJRefresh.h"
 
 @interface RCTemplateCollectionViewController () <UICollectionViewDataSource, RCCollectionViewDelegateAdaptiveHeightLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -26,6 +27,13 @@
     layout.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
     layout.lineSpacing = 20;
     layout.interitemSpacing = 10;
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.itemSize = CGSizeMake(150, 100);
+//    flowLayout.sectionHeadersPinToVisibleBounds = YES;
+//    flowLayout.headerReferenceSize = CGSizeMake(300, 50);
+//    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView.backgroundColor = UIColor.greenColor;
     self.collectionView.dataSource = self;
@@ -35,6 +43,25 @@
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self.view);
+//        make.left.top.equalTo(self.view);
+//        make.width.equalTo(@250);
+//        make.height.equalTo(@200);
+    }];
+    
+    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        NSLog(@"133");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.cvDataSource addObjectsFromArray:@[@"十一", @"十二", @"十三", @"十四", @"十五", @"十六", @"十七", @"十八", @"十九"]];
+            
+            [self.collectionView reloadData];
+//            NSMutableArray *marr = [NSMutableArray array];
+//            for (int i = 0; i < 9; i++) {
+//                [marr addObject:[NSIndexPath indexPathForItem:i+0 inSection:0]];
+//            }
+//            [self.collectionView reloadItemsAtIndexPaths:marr.copy];
+//            [self.collectionView insertItemsAtIndexPaths:marr.copy];
+            [self.collectionView.mj_footer endRefreshing];
+        });
     }];
     
     
@@ -51,6 +78,7 @@
 }
 
 - (void)onClicked {
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource & RCCollectionViewDelegateAdaptiveHeightLayout
@@ -75,7 +103,17 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout heightForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.item % 5 + 1) * 50;
+    if (indexPath.item % 2) {
+        return 200;
+    } else {
+        return 120;
+    }
+//    return (indexPath.item % 5 + 1) * 50;
+//    if (indexPath.item == 1) {
+//        return 800;
+//    } else {
+//        return 240;
+//    }
 }
 
 @end
