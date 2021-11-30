@@ -148,7 +148,7 @@
             return;
         }
         [self addChildViewControllerIfNeededWithIndex:nextIdx]; // 如果视图已经添加则调用这个方法相当于空操作
-        if (scrollView.contentOffset.x > templateSVWidth * (currentIdx + 0.5)) {
+        if (scrollView.contentOffset.x > templateSVWidth * (currentIdx + 0.9)) {
             [self.scrollTabBar setSelectedIndex:nextIdx animated:YES];
         }
     } else if (scrollView.contentOffset.x < templateSVWidth * currentIdx) {
@@ -157,7 +157,7 @@
             return;
         }
         [self addChildViewControllerIfNeededWithIndex:nextIdx];
-        if (scrollView.contentOffset.x < templateSVWidth * (currentIdx - 0.5)) {
+        if (scrollView.contentOffset.x < templateSVWidth * (currentIdx - 0.9)) {
             [self.scrollTabBar setSelectedIndex:nextIdx animated:YES];
         }
     }
