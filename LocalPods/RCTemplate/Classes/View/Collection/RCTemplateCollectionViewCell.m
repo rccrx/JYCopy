@@ -21,8 +21,8 @@
 
 @implementation RCTemplateCollectionViewCell
 
-- (instancetype)init {
-    if (self = [super init]) {
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
         self.contentView.backgroundColor = UIColor.rte_backgroundColor;
         
         self.coverImageView = [UIImageView rut_imageViewWithCornerRadius:3 contentMode:UIViewContentModeScaleAspectFit backgroundColor:UIColor.blackColor];
@@ -68,7 +68,8 @@
         }];
         
         self.nameLabel = [UILabel rut_labelWithTextColor:UIColor.rte_colorA2A2A2 font:Font_PFSC_R(10)];
-        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.contentView addSubview:self.nameLabel];
+        [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.avatarImageView.mas_right).offset(6);
             make.right.equalTo(self.coverImageView);
             make.centerY.equalTo(self.avatarImageView);
