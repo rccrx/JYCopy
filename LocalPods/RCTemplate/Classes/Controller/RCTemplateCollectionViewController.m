@@ -48,14 +48,18 @@
 - (void)requestData {
     for (int i = 0; i < 10; i++) {
         RCTemplateModel *model = [[RCTemplateModel alloc] init];
-        model.coverURL = @"https://img1.baidu.com/it/u=1995363239,4274347774&fm=26&fmt=auto";
-        model.coverRatio = (arc4random_uniform(100) + 50) / 100.0;
+        if (arc4random_uniform(2)) {
+            model.coverURL = @"https://img1.baidu.com/it/u=1995363239,4274347774&fm=26&fmt=auto";
+        } else {
+            model.coverURL = @"https://img2.baidu.com/it/u=781607565,66374776&fm=26&fmt=auto";
+        }
+        model.coverRatio = (arc4random_uniform(120) + 50) / 100.0;
         model.usageCount = 22;
         model.likeCount = 6;
         model.title = [NSString stringWithFormat:@"砸雪球变身: %d", i];
-        model.subtitle = @"然后对着镜头笑一个";
+        model.subtitle = @"今日份美好 | 文字可更改#日常碎片#";
         model.avatarURL = @"https://img2.baidu.com/it/u=3989200917,112452247&fm=26&fmt=auto";
-        model.nickname = @"摄影";
+        model.nickname = @"Ahfjinga（手机摄影）";
         [self.cvDataArray addObject:model];
     }
     [self.collectionView reloadData];

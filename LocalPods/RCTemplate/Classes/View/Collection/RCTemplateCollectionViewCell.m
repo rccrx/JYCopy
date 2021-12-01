@@ -32,8 +32,8 @@
             make.height.equalTo(@50); // 封面的高度之后需要根据图片比例进行修改
         }];
         
-        CGFloat tagHeight = 18;
-        self.tagLabel = [UILabel rut_labelWithTextColor:UIColor.whiteColor font:Font_PFSC_R(10) textAlignment:NSTextAlignmentCenter cornerRadius:tagHeight * 0.5];
+        CGFloat tagHeight = 20;
+        self.tagLabel = [UILabel rut_labelWithTextColor:UIColor.whiteColor font:Font_PFSC_R(10) textAlignment:NSTextAlignmentCenter cornerRadius:tagHeight * 0.5 backgroundColor:[UIColor rte_color000000WithAlpha:0.5]];
         [self.contentView addSubview:self.tagLabel];
         [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.coverImageView.mas_left).offset(8);
@@ -42,7 +42,7 @@
             make.bottom.equalTo(self.coverImageView.mas_bottom).offset(-5);
         }];
         
-        self.titleLabel = [UILabel rut_labelWithTextColor:UIColor.whiteColor font:Font_PFSC_M(15)];
+        self.titleLabel = [UILabel rut_labelWithTextColor:UIColor.whiteColor font:Font_PFSC_M(14)];
         [self.contentView addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.coverImageView);
@@ -50,7 +50,7 @@
             make.height.equalTo(@(self.titleLabel.font.lineHeight));
         }];
         
-        self.subtitleLabel = [UILabel rut_labelWithTextColor:UIColor.rte_colorCDCDCD font:Font_PFSC_R(13)];
+        self.subtitleLabel = [UILabel rut_labelWithTextColor:UIColor.rte_colorCDCDCD font:Font_PFSC_R(12)];
         [self.contentView addSubview:self.subtitleLabel];
         [self.subtitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.coverImageView);
@@ -93,7 +93,7 @@
     self.tagLabel.text = [NSString stringWithFormat:@"使用量 %@ 赞 %@", usage, like];
     CGSize tagSize = [self.tagLabel sizeThatFits:CGSizeMake(MAXFLOAT, CGRectGetHeight(self.tagLabel.frame))];
     [self.tagLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(tagSize.width + 6));
+        make.width.equalTo(@(tagSize.width + 14));
     }];
     
     self.titleLabel.text = self.data.title;

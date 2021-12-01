@@ -41,4 +41,8 @@
     return RGB(0xA2A2A2);
 }
 
++ (UIColor *)rte_color000000WithAlpha:(CGFloat)alpha {
+    return RGBA(0x000000, alpha);
+}
+
 @end
