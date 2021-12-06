@@ -9,6 +9,7 @@
 #import "RCTemplateCollectionViewCell.h"
 #import "RCCollectionViewAdaptiveHeightLayout.h"
 #import "RCTemplateModel.h"
+#import "RCTemplateCollectionViewModel.h"
 
 @interface RCTemplateCollectionViewController () <UICollectionViewDataSource, RCCollectionViewDelegateAdaptiveHeightLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -16,6 +17,14 @@
 @end
 
 @implementation RCTemplateCollectionViewController
+
+#pragma mark - Life Cycle
+- (instancetype)init {
+    if (self = [super init]) {
+        _viewModel = [RCTemplateCollectionViewModel new];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,6 +72,8 @@
         [self.cvDataArray addObject:model];
     }
     [self.collectionView reloadData];
+    
+    [self.viewModel requestTemplatesInCollection];
 }
 
 #pragma mark - UICollectionViewDataSource & RCCollectionViewDelegateAdaptiveHeightLayout

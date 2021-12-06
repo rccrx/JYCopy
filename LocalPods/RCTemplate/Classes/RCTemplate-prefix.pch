@@ -1,6 +1,7 @@
 // RCTemplate
 #import "UIColor+TemplateStyle.h"
 #import "UIImage+Template.h"
+#import "RCTemplateNetworkURLDefines.h"
 
 // RCUtility
 #import "RCColorMacro.h"

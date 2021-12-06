@@ -11,6 +11,7 @@ target 'JYCopy' do
   
   # 基础模块
   pod 'RCUtility', :path => './LocalPods/RCUtility'
+  pod 'RCNetwork', :path => './LocalPods/RCNetwork'
   
   # 依赖库（调试）
   pod 'LookinServer', :configurations => ['Debug']
