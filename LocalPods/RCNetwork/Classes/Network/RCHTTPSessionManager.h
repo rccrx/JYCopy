@@ -6,7 +6,6 @@
 //
 
 #import "AFHTTPSessionManager.h"
-#import "RCNetworkURLDefines.h"
 #import "RCJustForTransformTemp_Delete.h"
 
 NS_ASSUME_NONNULL_BEGIN

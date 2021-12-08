@@ -79,6 +79,9 @@
 
 - (NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray *attributesArray = [NSMutableArray array];
+    if (self.cachedAttributes.count == 0) {
+        return attributesArray;
+    }
     
     NSInteger firstMatchIndex = [self binarySearchCachedAttributesInRect:rect startIndex:0 endIndex:self.cachedAttributes.count - 1];
     if (firstMatchIndex == -1) {

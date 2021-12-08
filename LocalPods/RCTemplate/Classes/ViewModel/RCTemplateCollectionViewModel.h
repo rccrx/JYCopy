@@ -9,12 +9,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCEditTemplate;
+
+/** 所有readonly属性都支持KVO */
 @interface RCTemplateCollectionViewModel : NSObject
 
 /** 模板集合的id */
 @property (nonatomic, copy) NSString *collectionId;
 
-- (void)requestTemplatesInCollection;
+@property (nonatomic, copy, readonly) NSArray<RCEditTemplate *> *templates;
+
+- (void)requestFirstPageTemplates;
+- (void)loadMoreTemplates;
 
 @end
 

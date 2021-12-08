@@ -6,7 +6,7 @@
 //
 
 #import "RCTemplateCollectionViewCell.h"
-#import "RCTemplateModel.h"
+#import "RCEditTemplate.h"
 
 @interface RCTemplateCollectionViewCell ()
 
@@ -79,7 +79,7 @@
     return self;
 }
 
-- (void)setData:(RCTemplateModel *)data {
+- (void)setData:(RCEditTemplate *)data {
     _data = data;
     
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:self.data.coverURL]];
@@ -103,12 +103,12 @@
 }
 
 #pragma mark - Class Methods
-+ (CGFloat)getCellHeightWithData:(RCTemplateModel *)data cellWidth:(CGFloat)cellWidth {
++ (CGFloat)getCellHeightWithData:(RCEditTemplate *)data cellWidth:(CGFloat)cellWidth {
     CGFloat coverHeight = [self getCoverHeightWithData:data cellWidth:cellWidth];
     return coverHeight + [self getAvatarTopToCoverBottom] + [self getAvatarWidthHeight];
 }
 
-+ (CGFloat)getCoverHeightWithData:(RCTemplateModel *)data cellWidth:(CGFloat)cellWidth {
++ (CGFloat)getCoverHeightWithData:(RCEditTemplate *)data cellWidth:(CGFloat)cellWidth {
     CGFloat coverWidth = cellWidth;
     CGFloat coverHeight = coverWidth * data.coverRatio;
     return coverHeight;

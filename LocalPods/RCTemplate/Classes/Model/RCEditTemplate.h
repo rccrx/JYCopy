@@ -1,15 +1,15 @@
 //
-//  RCTemplateModel.h
+//  RCEditTemplate.h
 //  RCTemplate
 //
-//  Created by crx on 2021/11/30.
+//  Created by crx on 2021/12/7.
 //
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RCTemplateModel : NSObject
+@interface RCEditTemplate : NSObject
 
 @property (nonatomic, copy) NSString *coverURL;
 @property (nonatomic, assign) CGFloat coverRatio;

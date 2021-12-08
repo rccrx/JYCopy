@@ -9,13 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class RCTemplateModel;
+@class RCEditTemplate;
 
 @interface RCTemplateCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) RCTemplateModel *data;
+@property (nonatomic, strong) RCEditTemplate *data;
 
-+ (CGFloat)getCellHeightWithData:(RCTemplateModel *)data cellWidth:(CGFloat)cellWidth;
++ (CGFloat)getCellHeightWithData:(RCEditTemplate *)data cellWidth:(CGFloat)cellWidth;
 
 @end
 

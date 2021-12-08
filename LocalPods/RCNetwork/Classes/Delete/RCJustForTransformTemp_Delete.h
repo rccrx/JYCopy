@@ -20,7 +20,7 @@
 #define NSDICTIONARY_COMMON_HEADERS @{}
 #define NSDICTIONARY_GTIC_PARAMS_FIRST_LOAD(id, offset, count) @{}
 #define NSDICTIONARY_GTIC_PARAMS_LOAD_MORE(id, offset, count) @{}
-#define NSNUMBER_COLLECTION_ID_1 @1
+#define NSSTRING_COLLECTION_ID_1 @""
 
 #endif
 

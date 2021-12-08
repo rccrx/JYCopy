@@ -6,6 +6,7 @@
 //
 
 #import "RCHTTPSessionManager.h"
+#import "RCNetworkURLDefines.h"
 
 @implementation RCHTTPSessionManager
 

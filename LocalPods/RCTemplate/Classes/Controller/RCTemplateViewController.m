@@ -11,6 +11,7 @@
 #import "RCTemplateCarouselView.h"
 #import "RCScrollTabBar.h"
 #import "RCTemplateCollectionViewController.h"
+#import "RCTemplateCollectionViewModel.h"
 
 @interface RCTemplateViewController () <RCScrollTabBarDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) RCTemplateSearchTextField *searchTF;
@@ -120,6 +121,7 @@
     }
     
     vc = [RCTemplateCollectionViewController new];
+    vc.viewModel.collectionId = NSSTRING_COLLECTION_ID_1;
     [self addChildViewController:vc];
     CGFloat templateSVWidth = CGRectGetWidth(self.templateScrollView.frame);
     CGFloat templateSVHeight = CGRectGetHeight(self.templateScrollView.frame);
