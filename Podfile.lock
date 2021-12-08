@@ -27,10 +27,12 @@ PODS:
     - RCNetwork
     - RCUtility
     - SDWebImage (~> 5.12.0)
+    - YYModel (~> 1.0.4)
   - RCUtility (0.1.0)
   - SDWebImage (5.12.0):
     - SDWebImage/Core (= 5.12.0)
   - SDWebImage/Core (5.12.0)
+  - YYModel (1.0.4)
 
 DEPENDENCIES:
   - LookinServer
@@ -45,6 +47,7 @@ SPEC REPOS:
     - LookinServer
     - Masonry
     - SDWebImage
+    - YYModel
 
 EXTERNAL SOURCES:
   RCMain:
@@ -62,9 +65,10 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   RCMain: f612def19887d537a89cb047d7bbe3fa7fd0b5ee
   RCNetwork: 2be1b236bd23f0db99534e86db2e6aa237938dc6
-  RCTemplate: 84d6508fb6f7666832e9ad4f635b417adb0ccaa2
+  RCTemplate: 17f58c8cd2566cb8e03c32564aa5b7d5a0ead742
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
   SDWebImage: 4ea20cca2986adc5aacde07aa686742fd4c67a37
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
 PODFILE CHECKSUM: 2c7aa5bffc6895f714099df87c10b39bdb9e5b73
 

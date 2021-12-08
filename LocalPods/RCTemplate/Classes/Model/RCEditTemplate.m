@@ -9,4 +9,13 @@
 
 @implementation RCEditTemplate
 
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"coverURL": @"cover_url",
+             @"coverWidth": @"cover_width",
+             @"coverHeight": @"cover_height",
+             @"usageCount": @"usage_amount",
+             @"likeCount": @"like_count",
+             @"shortTitle": @"short_title"};
+}
+
 @end

@@ -16,3 +16,4 @@
 // 依赖库
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
+#import "YYModel.h"

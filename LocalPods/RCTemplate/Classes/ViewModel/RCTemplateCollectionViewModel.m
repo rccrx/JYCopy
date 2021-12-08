@@ -7,6 +7,7 @@
 
 #import "RCTemplateCollectionViewModel.h"
 #import "RCEditTemplate.h"
+#import "RCTemplateAuthor.h"
 
 @interface RCTemplateCollectionViewModel ()
 /*--------------- 重复头文件的readonly属性声明，为了自动添加Setter方法 ---------------*/
@@ -23,11 +24,16 @@
 }
 
 - (void)requestFirstPageTemplates {
+#if 1//测试
     if (![self isNetworkAPIEnabledAndThenSetFakeDataIfNot]) return; // 没有接口时显示测试数据
+#endif
     
     NSDictionary *params = NSDICTIONARY_GTIC_PARAMS_FIRST_LOAD(self.collectionId?:@"", @0, @30);
     [RCHTTPSessionManager.sharedManager POST:kURLGetTemplatesInCollection parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"suss: rsonsp=%@", responseObject);
+        NSDictionary *data = responseObject[@"data"];
+        NSArray *itemList = data[@"item_list"];
+        NSArray<RCEditTemplate *> *modelArr = [NSArray yy_modelArrayWithClass:RCEditTemplate.class json:itemList];
+        self.templates = modelArr;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"falus: error=%@", error);
     }];
@@ -75,13 +81,16 @@
         } else {
             template.coverURL = @"https://img2.baidu.com/it/u=781607565,66374776&fm=26&fmt=auto";
         }
-        template.coverRatio = (arc4random_uniform(120) + 50) / 100.0;
+        template.coverWidth = (arc4random_uniform(100) + 720);
+        template.coverHeight = (arc4random_uniform(300) + 960);
         template.usageCount = 22;
         template.likeCount = 6;
-        template.title = [NSString stringWithFormat:@"砸雪球变身: %d", i];
-        template.subtitle = @"今日份美好 | 文字可更改#日常碎片#";
-        template.avatarURL = @"https://img2.baidu.com/it/u=3989200917,112452247&fm=26&fmt=auto";
-        template.nickname = @"Ahfjinga（手机摄影）";
+        template.shortTitle = [NSString stringWithFormat:@"砸雪球变身: %d", i];
+        template.title = @"今日份美好 | 文字可更改#日常碎片#";
+        RCTemplateAuthor *author = [RCTemplateAuthor new];
+        author.avatarURL = @"https://img2.baidu.com/it/u=3989200917,112452247&fm=26&fmt=auto";
+        author.name = @"Ahfjinga（手机摄影）";
+        template.author = author;
         [tempArr addObject:template];
     }
     self.templates = tempArr;

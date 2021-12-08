@@ -66,7 +66,9 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    NSLog(@"keypath=%@, obj=%@, chage=%@, tmplay=%@", keyPath, object, change, self.viewModel.templates);
+    if ([keyPath isEqualToString:@"templates"] && object == self.viewModel) {
+        [self.collectionView reloadData];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource & RCCollectionViewDelegateAdaptiveHeightLayout

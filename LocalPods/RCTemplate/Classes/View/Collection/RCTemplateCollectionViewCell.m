@@ -7,6 +7,7 @@
 
 #import "RCTemplateCollectionViewCell.h"
 #import "RCEditTemplate.h"
+#import "RCTemplateAuthor.h"
 
 @interface RCTemplateCollectionViewCell ()
 
@@ -96,10 +97,10 @@
         make.width.equalTo(@(tagSize.width + 14));
     }];
     
-    self.titleLabel.text = self.data.title;
-    self.subtitleLabel.text = self.data.subtitle;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.data.avatarURL]];
-    self.nameLabel.text = self.data.nickname;
+    self.titleLabel.text = self.data.shortTitle;
+    self.subtitleLabel.text = self.data.title;
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.data.author.avatarURL]];
+    self.nameLabel.text = self.data.author.name;
 }
 
 #pragma mark - Class Methods
@@ -110,7 +111,7 @@
 
 + (CGFloat)getCoverHeightWithData:(RCEditTemplate *)data cellWidth:(CGFloat)cellWidth {
     CGFloat coverWidth = cellWidth;
-    CGFloat coverHeight = coverWidth * data.coverRatio;
+    CGFloat coverHeight = coverWidth / data.coverWidth * data.coverHeight * 1.0;
     return coverHeight;
 }
 
