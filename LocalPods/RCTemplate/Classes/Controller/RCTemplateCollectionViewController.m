@@ -9,6 +9,7 @@
 #import "RCTemplateCollectionViewCell.h"
 #import "RCCollectionViewAdaptiveHeightLayout.h"
 #import "RCTemplateCollectionViewModel.h"
+#import "MJRefresh.h"
 
 @interface RCTemplateCollectionViewController () <UICollectionViewDataSource, RCCollectionViewDelegateAdaptiveHeightLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -49,6 +50,14 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self.view);
     }];
+    
+    __weak typeof(self) weakSelf = self;
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf.viewModel requestFirstPageTemplates];
+    }];
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf.viewModel loadMoreTemplates];
+    }];
 }
 
 #pragma mark - Data
@@ -67,6 +76,8 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"templates"] && object == self.viewModel) {
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
         [self.collectionView reloadData];
     }
 }

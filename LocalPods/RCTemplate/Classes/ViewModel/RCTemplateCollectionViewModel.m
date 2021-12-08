@@ -42,7 +42,15 @@
 - (void)loadMoreTemplates {
     NSDictionary *params = NSDICTIONARY_GTIC_PARAMS_LOAD_MORE(self.collectionId?:@"", @24, @10);
     [RCHTTPSessionManager.sharedManager POST:kURLGetTemplatesInCollection parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"loamorsuss: rsonsp=%@", responseObject);
+        NSDictionary *data = responseObject[@"data"];
+        NSArray *itemList = data[@"item_list"];
+        NSMutableArray *tempArr = [NSMutableArray arrayWithCapacity:self.templates.count + itemList.count];
+        [tempArr addObjectsFromArray:self.templates];
+        for (NSDictionary *dict in itemList) {
+            RCEditTemplate *model = [RCEditTemplate yy_modelWithDictionary:dict];
+            [tempArr addObject:model];
+        }
+        self.templates = tempArr;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"loamorfalus: error=%@", error);
     }];
