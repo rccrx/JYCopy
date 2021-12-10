@@ -16,7 +16,10 @@ PODS:
     - AFNetworking/NSURLSession
   - LookinServer (1.0.4)
   - Masonry (1.1.0)
+  - MBProgressHUD (1.2.0)
   - MJRefresh (3.7.2)
+  - RCCommonUI (0.1.0):
+    - MBProgressHUD (~> 1.2.0)
   - RCMain (0.1.0):
     - Masonry (~> 1.1.0)
     - RCTemplate
@@ -26,6 +29,7 @@ PODS:
   - RCTemplate (0.1.0):
     - Masonry (~> 1.1.0)
     - MJRefresh (~> 3.7.2)
+    - RCCommonUI
     - RCNetwork
     - RCUtility
     - SDWebImage (~> 5.12.0)
@@ -38,6 +42,7 @@ PODS:
 
 DEPENDENCIES:
   - LookinServer
+  - RCCommonUI (from `./LocalPods/RCCommonUI`)
   - RCMain (from `./LocalPods/RCMain`)
   - RCNetwork (from `./LocalPods/RCNetwork`)
   - RCTemplate (from `./LocalPods/RCTemplate`)
@@ -48,11 +53,14 @@ SPEC REPOS:
     - AFNetworking
     - LookinServer
     - Masonry
+    - MBProgressHUD
     - MJRefresh
     - SDWebImage
     - YYModel
 
 EXTERNAL SOURCES:
+  RCCommonUI:
+    :path: "./LocalPods/RCCommonUI"
   RCMain:
     :path: "./LocalPods/RCMain"
   RCNetwork:
@@ -66,14 +74,16 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
+  RCCommonUI: c18552b3774aae6e120886ebf9554e9102e5fc17
   RCMain: f612def19887d537a89cb047d7bbe3fa7fd0b5ee
   RCNetwork: 2be1b236bd23f0db99534e86db2e6aa237938dc6
-  RCTemplate: 9cdb2e92586a2c280db41bff581068e35db145c4
+  RCTemplate: 8e60379f9032b59e610924156b85ad742f4834ca
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
   SDWebImage: 4ea20cca2986adc5aacde07aa686742fd4c67a37
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 2c7aa5bffc6895f714099df87c10b39bdb9e5b73
+PODFILE CHECKSUM: 9320d53cba7b936fb8f44222b83264cbf26d4170
 
 COCOAPODS: 1.7.2

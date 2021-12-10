@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
   
   s.dependency 'RCUtility'
   s.dependency 'RCNetwork'
+  s.dependency 'RCCommonUI'
   
   s.dependency 'Masonry', '~> 1.1.0'
   s.dependency 'SDWebImage', '~> 5.12.0'

@@ -89,8 +89,8 @@
         make.height.equalTo(@(coverHeight));
     }];
     
-    NSString *usage = self.data.usageCount >= 10000 ? [NSString stringWithFormat:@"%.2f万", self.data.usageCount / 10000.0] : [NSString stringWithFormat:@"%ld", self.data.usageCount];
-    NSString *like = self.data.likeCount >= 10000 ? [NSString stringWithFormat:@"%.2f万", self.data.likeCount / 10000.0] : [NSString stringWithFormat:@"%ld", self.data.likeCount];
+    NSString *usage = self.data.usageCount >= 10000 ? [NSString stringWithFormat:@"%.2f万", self.data.usageCount / 10000.0] : [NSString stringWithFormat:@"%lld", self.data.usageCount];
+    NSString *like = self.data.likeCount >= 10000 ? [NSString stringWithFormat:@"%.2f万", self.data.likeCount / 10000.0] : [NSString stringWithFormat:@"%lld", self.data.likeCount];
     self.tagLabel.text = [NSString stringWithFormat:@"使用量 %@ 赞 %@", usage, like];
     CGSize tagSize = [self.tagLabel sizeThatFits:CGSizeMake(MAXFLOAT, CGRectGetHeight(self.tagLabel.frame))];
     [self.tagLabel mas_updateConstraints:^(MASConstraintMaker *make) {
