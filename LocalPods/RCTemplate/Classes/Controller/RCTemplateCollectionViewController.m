@@ -10,9 +10,13 @@
 #import "RCCollectionViewAdaptiveHeightLayout.h"
 #import "RCTemplateCollectionViewModel.h"
 #import "MJRefresh.h"
+#import "RCTemplateCollectionEmptyView.h"
+#import "RCTemplateCollectionRequestErrorView.h"
 
 @interface RCTemplateCollectionViewController () <UICollectionViewDataSource, RCCollectionViewDelegateAdaptiveHeightLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) RCTemplateCollectionEmptyView *emptyView;
+@property (nonatomic, strong) RCTemplateCollectionRequestErrorView *requestErrorView;
 @end
 
 @implementation RCTemplateCollectionViewController
@@ -37,6 +41,9 @@
 }
 
 - (void)setupUI {
+    __weak typeof(self) weakSelf = self;
+    
+    // collectionView
     RCCollectionViewAdaptiveHeightLayout *layout = [[RCCollectionViewAdaptiveHeightLayout alloc] init];
     layout.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
     layout.lineSpacing = 20;
@@ -51,34 +58,139 @@
         make.left.right.top.bottom.equalTo(self.view);
     }];
     
-    __weak typeof(self) weakSelf = self;
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf.viewModel requestFirstPageTemplates];
+        [weakSelf.viewModel getTemplatesForCurrentCollectionId];
     }];
-    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf.viewModel loadMoreTemplates];
+    
+    
+    // emptyView
+    self.emptyView = [RCTemplateCollectionEmptyView new];
+    [self.view addSubview:self.emptyView];
+    [self.emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self.view);
     }];
+    
+    
+    // requestErrorView
+    self.requestErrorView = [RCTemplateCollectionRequestErrorView new];
+    self.requestErrorView.tapAction = ^{
+        [weakSelf.viewModel getTemplatesForCurrentCollectionId];
+    };
+    [self.view addSubview:self.requestErrorView];
+    [self.requestErrorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self.view);
+    }];
+    
+    
+    [self showViewAndHideOthers:self.collectionView];
 }
 
 #pragma mark - Data
 - (void)requestData {
-    [self.viewModel requestFirstPageTemplates];
+    [self.viewModel getTemplatesForCurrentCollectionId];
+}
+
+#pragma mark - Private
+/** 传入collectionView或emptyView或requestErrorView */
+- (void)showViewAndHideOthers:(UIView *)view {
+    if (view == self.collectionView) {
+        self.collectionView.hidden = NO;
+        self.emptyView.hidden = YES;
+        self.requestErrorView.hidden = YES;
+    } else if (view == self.emptyView) {
+        self.collectionView.hidden = YES;
+        self.emptyView.hidden = NO;
+        self.requestErrorView.hidden = YES;
+    } else if (view == self.requestErrorView) {
+        self.collectionView.hidden = YES;
+        self.emptyView.hidden = YES;
+        self.requestErrorView.hidden = NO;
+    }
 }
 
 #pragma mark - Observer
 - (void)addObservers {
     [self.viewModel addObserver:self forKeyPath:@"templates" options:NSKeyValueObservingOptionNew context:nil];
+    [self.viewModel addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)removeObservers {
     [self.viewModel removeObserver:self forKeyPath:@"templates" context:nil];
+    [self.viewModel removeObserver:self forKeyPath:@"state" context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"templates"] && object == self.viewModel) {
-        [self.collectionView.mj_header endRefreshing];
-        [self.collectionView.mj_footer endRefreshing];
+    if (object != self.viewModel) {
+        return;
+    }
+    
+    if ([keyPath isEqualToString:@"templates"]) {
+        if (self.viewModel.templates.count > 0) {
+            [self showViewAndHideOthers:self.collectionView];
+        }
         [self.collectionView reloadData];
+        
+    } else if ([keyPath isEqualToString:@"state"]) {
+        switch (self.viewModel.state) {
+            case RCTemplatesRequestStateGetTemplatesStarted:
+            {
+                if (self.viewModel.templates.count == 0) { // 首次加载 或 点击requestErrorView
+                    self.requestErrorView.hidden = YES;
+                    [MBProgressHUD showLoadingHUDAddedTo:self.view animated:YES];
+                }
+                break;
+            }
+            case RCTemplatesRequestStateGetTemplatesEndedSucceedHasMore:
+            case RCTemplatesRequestStateGetTemplatesEndedSucceedNoMore:
+            {
+                [self.collectionView.mj_header endRefreshing];
+                [MBProgressHUD hideLoadingHUDForView:self.view animated:YES];
+                if (self.viewModel.state == RCTemplatesRequestStateGetTemplatesEndedSucceedNoMore) {
+                    self.collectionView.mj_footer = nil;
+                    if (self.viewModel.templates.count == 0) {
+                        [self showViewAndHideOthers:self.emptyView];
+                    }
+                } else if (!self.collectionView.mj_footer) {
+                    __weak typeof(self) weakSelf = self;
+                    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                        [weakSelf.viewModel loadMoreTemplates];
+                    }];
+                }
+                break;
+            }
+            case RCTemplatesRequestStateGetTemplatesEndedFailed:
+            {
+                NSLog(@"RCTemplatesRequestStateGetTemplatesEndedFailed: error=%@", self.viewModel.error);
+                [self.collectionView.mj_header endRefreshing];
+                [MBProgressHUD hideLoadingHUDForView:self.view animated:NO];
+                if (self.viewModel.templates.count == 0) {
+                    [self showViewAndHideOthers:self.requestErrorView];
+                } else {
+                    [MBProgressHUD showAutohideTextHUDAddedTo:self.view.window animated:YES text:@"网络异常，请重试"];
+                }
+                break;
+            }
+            case RCTemplatesRequestStateLoadMoreTemplatesEndedSucceedHasMore:
+            case RCTemplatesRequestStateLoadMoreTemplatesEndedSucceedNoMore:
+            {
+                if (self.viewModel.state == RCTemplatesRequestStateLoadMoreTemplatesEndedSucceedNoMore) {
+                    [self.collectionView.mj_footer endRefreshingWithNoMoreData];
+                } else {
+                    [self.collectionView.mj_footer endRefreshing];
+                }
+                break;
+            }
+            case RCTemplatesRequestStateLoadMoreTemplatesEndedFailed:
+            {
+                NSLog(@"RCTemplatesRequestStateLoadMoreTemplatesEndedFailed: error=%@", self.viewModel.error);
+                [self.collectionView.mj_footer endRefreshing];
+                [MBProgressHUD showAutohideTextHUDAddedTo:self.view.window animated:YES text:@"网络异常，请重试"];
+                break;
+            }
+                
+            default:
+                break;
+        }
     }
 }
 

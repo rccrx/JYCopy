@@ -25,6 +25,10 @@
     return hud;
 }
 
++ (BOOL)hideLoadingHUDForView:(UIView *)view animated:(BOOL)animated {
+    return [MBProgressHUD hideHUDForView:view animated:animated];
+}
+
 + (instancetype)showTextHUDAddedTo:(UIView *)view animated:(BOOL)animated text:(NSString *)text {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
     hud.removeFromSuperViewOnHide = YES;
@@ -40,6 +44,16 @@
     
     [hud showAnimated:animated];
     return hud;
+}
+
++ (instancetype)showAutohideTextHUDAddedTo:(UIView *)view animated:(BOOL)animated text:(NSString *)text duration:(NSTimeInterval)duration {
+    MBProgressHUD *hud = [self showTextHUDAddedTo:view animated:animated text:text];
+    [hud hideAnimated:animated afterDelay:duration];
+    return hud;
+}
+
++ (instancetype)showAutohideTextHUDAddedTo:(UIView *)view animated:(BOOL)animated text:(NSString *)text {
+    return [self showAutohideTextHUDAddedTo:view animated:animated text:text duration:1.5];
 }
 
 @end

@@ -12,6 +12,8 @@
 @interface RCTemplateCollectionViewModel ()
 /*--------------- 重复头文件的readonly属性声明，为了自动添加Setter方法 ---------------*/
 @property (nonatomic, copy) NSArray<RCEditTemplate *> *templates;
+@property (nonatomic, strong) NSError *error;
+@property (nonatomic, assign) RCTemplatesRequestState state;
 @end
 
 @implementation RCTemplateCollectionViewModel
@@ -23,25 +25,55 @@
     return self;
 }
 
-- (void)requestFirstPageTemplates {
+- (void)getTemplatesForCurrentCollectionId {
 #if 1//测试
     if (![self isNetworkAPIEnabledAndThenSetFakeDataIfNot]) return; // 没有接口时显示测试数据
 #endif
     
+    self.state = RCTemplatesRequestStateGetTemplatesStarted;
+    
     NSDictionary *params = NSDICTIONARY_GTIC_PARAMS_FIRST_LOAD(self.collectionId?:@"", @0, @30);
     [RCHTTPSessionManager.sharedManager POST:kURLGetTemplatesInCollection parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSInteger ret = [responseObject[@"ret"] integerValue];
+        if (ret != 0) {
+            self.error = [NSError errorWithDomain:RCTemplateCollectionViewModelErrorDomain code:ret userInfo:@{NSLocalizedFailureReasonErrorKey: responseObject[@"errmsg"]?:@"", NSURLErrorKey: task.currentRequest.URL}];
+            self.state = RCTemplatesRequestStateGetTemplatesEndedFailed;
+            return; // 这个block的return
+        }
+        
+        self.error = nil;
+        
         NSDictionary *data = responseObject[@"data"];
         NSArray *itemList = data[@"item_list"];
         NSArray<RCEditTemplate *> *modelArr = [NSArray yy_modelArrayWithClass:RCEditTemplate.class json:itemList];
         self.templates = modelArr;
+        
+        BOOL hasMore = [data[@"has_more"] boolValue];
+        if (hasMore) {
+            self.state = RCTemplatesRequestStateGetTemplatesEndedSucceedHasMore;
+        } else {
+            self.state = RCTemplatesRequestStateGetTemplatesEndedSucceedNoMore;
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"falus: error=%@", error);
+        self.error = error;
+        self.state = RCTemplatesRequestStateGetTemplatesEndedFailed;
     }];
 }
 
 - (void)loadMoreTemplates {
+    self.state = RCTemplatesRequestStateLoadMoreTemplatesStarted;
+    
     NSDictionary *params = NSDICTIONARY_GTIC_PARAMS_LOAD_MORE(self.collectionId?:@"", @24, @10);
     [RCHTTPSessionManager.sharedManager POST:kURLGetTemplatesInCollection parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSInteger ret = [responseObject[@"ret"] integerValue];
+        if (ret != 0) {
+            self.error = [NSError errorWithDomain:RCTemplateCollectionViewModelErrorDomain code:ret userInfo:@{NSLocalizedFailureReasonErrorKey: responseObject[@"errmsg"]?:@"", NSURLErrorKey: task.currentRequest.URL}];
+            self.state = RCTemplatesRequestStateLoadMoreTemplatesEndedFailed;
+            return;
+        }
+        
+        self.error = nil;
+        
         NSDictionary *data = responseObject[@"data"];
         NSArray *itemList = data[@"item_list"];
         NSMutableArray *tempArr = [NSMutableArray arrayWithCapacity:self.templates.count + itemList.count];
@@ -51,8 +83,16 @@
             [tempArr addObject:model];
         }
         self.templates = tempArr;
+        
+        BOOL hasMore = [data[@"has_more"] boolValue];
+        if (hasMore) {
+            self.state = RCTemplatesRequestStateLoadMoreTemplatesEndedSucceedHasMore;
+        } else {
+            self.state = RCTemplatesRequestStateLoadMoreTemplatesEndedSucceedNoMore;
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"loamorfalus: error=%@", error);
+        self.error = error;
+        self.state = RCTemplatesRequestStateLoadMoreTemplatesEndedFailed;
     }];
 }
 
