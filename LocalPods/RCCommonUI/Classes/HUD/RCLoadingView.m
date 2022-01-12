@@ -17,7 +17,7 @@
         layer1.cornerRadius = CGRectGetHeight(layer1.frame) * 0.5;
         [self.layer addSublayer:layer1];
         CALayer *layer2 = [[CALayer alloc] init];
-        layer2.frame = CGRectMake(10, 0, 10, 10);
+        layer2.frame = CGRectMake(0, 0, 10, 10);
         layer2.backgroundColor = [UIColor colorWithRed:255/255.0 green:82/255.0 blue:218/255.0 alpha:0.5].CGColor;
         layer2.cornerRadius = CGRectGetHeight(layer2.frame) * 0.5;
         [self.layer insertSublayer:layer2 below:layer1];
@@ -37,19 +37,12 @@
         group1.removedOnCompletion = NO;
         [layer1 addAnimation:group1 forKey:@"animationGroup"];
         
-        
-        CAKeyframeAnimation *translation2 = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
-        translation2.values = @[@0, @-5, @-10, @-5, @0];
-        translation2.timingFunctions = @[[CAMediaTimingFunction functionWithControlPoints:0.8 :0 :1 :1], [CAMediaTimingFunction functionWithControlPoints:0 :0 :0.2 :1], [CAMediaTimingFunction functionWithControlPoints:0.8 :0 :1 :1], [CAMediaTimingFunction functionWithControlPoints:0 :0 :0.2 :1]];
-        CAKeyframeAnimation *scale2 = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-        scale2.values = @[@1, @1.15, @1, @0.55, @1];
-        scale2.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-        
         CAAnimationGroup *group2 = [CAAnimationGroup animation];
-        group2.animations = @[translation2, scale2];
+        group2.animations = @[translation1, scale1];
         group2.repeatCount = INFINITY;
         group2.duration = group1.duration;
         group2.removedOnCompletion = NO;
+        group2.timeOffset = 0.5 * group2.duration;
         [layer2 addAnimation:group2 forKey:@"animationGroup"];
     }
     return self;
