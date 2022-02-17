@@ -9,7 +9,8 @@
 #import "RCTemplateCollectionViewCell.h"
 #import "RCCollectionViewAdaptiveHeightLayout.h"
 #import "RCTemplateCollectionViewModel.h"
-#import "MJRefresh.h"
+#import "RCRefreshCAHeader.h"
+#import "RCRefreshAutoCAFooter.h"
 #import "RCTemplateCollectionEmptyView.h"
 #import "RCTemplateCollectionRequestErrorView.h"
 
@@ -58,7 +59,7 @@
         make.left.right.top.bottom.equalTo(self.view);
     }];
     
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.collectionView.mj_header = [RCRefreshCAHeader headerWithRefreshingBlock:^{
         [weakSelf.viewModel getTemplatesForCurrentCollectionId];
     }];
     
@@ -144,7 +145,7 @@
             case RCTemplatesRequestStateGetTemplatesEndedSucceedNoMore:
             {
                 [self.collectionView.mj_header endRefreshing];
-                [MBProgressHUD hideLoadingHUDForView:self.view animated:YES];
+                [MBProgressHUD hideLoadingHUDForView:self.view animated:NO];
                 if (self.viewModel.state == RCTemplatesRequestStateGetTemplatesEndedSucceedNoMore) {
                     self.collectionView.mj_footer = nil;
                     if (self.viewModel.templates.count == 0) {
@@ -152,7 +153,7 @@
                     }
                 } else if (!self.collectionView.mj_footer) {
                     __weak typeof(self) weakSelf = self;
-                    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                    self.collectionView.mj_footer = [RCRefreshAutoCAFooter footerWithRefreshingBlock:^{
                         [weakSelf.viewModel loadMoreTemplates];
                     }];
                 }

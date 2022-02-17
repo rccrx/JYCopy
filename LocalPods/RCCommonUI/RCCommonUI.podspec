@@ -10,4 +10,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   
   s.dependency 'MBProgressHUD', '~> 1.2.0'
+  s.dependency 'MJRefresh', '~> 3.7.2'
 end

@@ -20,6 +20,7 @@ PODS:
   - MJRefresh (3.7.2)
   - RCCommonUI (0.1.0):
     - MBProgressHUD (~> 1.2.0)
+    - MJRefresh (~> 3.7.2)
   - RCMain (0.1.0):
     - Masonry (~> 1.1.0)
     - RCTemplate
@@ -28,7 +29,6 @@ PODS:
     - AFNetworking (~> 4.0.1)
   - RCTemplate (0.1.0):
     - Masonry (~> 1.1.0)
-    - MJRefresh (~> 3.7.2)
     - RCCommonUI
     - RCNetwork
     - RCUtility
@@ -76,10 +76,10 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
-  RCCommonUI: c18552b3774aae6e120886ebf9554e9102e5fc17
+  RCCommonUI: aa3cd7cd4afcf37eccb1029f7f055944297679d5
   RCMain: f612def19887d537a89cb047d7bbe3fa7fd0b5ee
   RCNetwork: 2be1b236bd23f0db99534e86db2e6aa237938dc6
-  RCTemplate: 8e60379f9032b59e610924156b85ad742f4834ca
+  RCTemplate: 73cc574bf38fbbbfd109746f346d29be63de9e81
   RCUtility: 37bb91b98bdf17a316efa24be85112f856e6b67f
   SDWebImage: 4ea20cca2986adc5aacde07aa686742fd4c67a37
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
