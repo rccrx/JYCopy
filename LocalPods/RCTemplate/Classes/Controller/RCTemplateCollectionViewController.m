@@ -156,6 +156,7 @@
                     self.collectionView.mj_footer = [RCRefreshAutoCAFooter footerWithRefreshingBlock:^{
                         [weakSelf.viewModel loadMoreTemplates];
                     }];
+                    [(RCRefreshAutoCAFooter *)self.collectionView.mj_footer setTriggerAutomaticallyRefreshPercent:0.1];
                 }
                 break;
             }
@@ -184,7 +185,7 @@
             case RCTemplatesRequestStateLoadMoreTemplatesEndedFailed:
             {
                 NSLog(@"RCTemplatesRequestStateLoadMoreTemplatesEndedFailed: error=%@", self.viewModel.error);
-                [self.collectionView.mj_footer endRefreshing];
+                [(RCRefreshAutoCAFooter *)self.collectionView.mj_footer endRefreshingWithDataFailed];
                 [MBProgressHUD showAutohideTextHUDAddedTo:self.view.window animated:YES text:@"网络异常，请重试"];
                 break;
             }
