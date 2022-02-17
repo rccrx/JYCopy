@@ -121,27 +121,40 @@
 #else
     BOOL isNetworkAPIEnabled = NO;
     
-    NSMutableArray *tempArr = [NSMutableArray array];
-    for (int i = 0; i < 10; i++) {
-        RCEditTemplate *template = [[RCEditTemplate alloc] init];
-        if (arc4random_uniform(2)) {
-            template.coverURL = @"https://img1.baidu.com/it/u=1995363239,4274347774&fm=26&fmt=auto";
-        } else {
-            template.coverURL = @"https://img2.baidu.com/it/u=781607565,66374776&fm=26&fmt=auto";
+    self.state = RCTemplatesRequestStateGetTemplatesStarted;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSMutableArray *tempArr = [NSMutableArray array];
+        for (int i = 0; i < 10; i++) {
+            RCEditTemplate *template = [[RCEditTemplate alloc] init];
+            if (arc4random_uniform(2)) {
+                template.coverURL = @"https://img1.baidu.com/it/u=1995363239,4274347774&fm=26&fmt=auto";
+            } else {
+                template.coverURL = @"https://img2.baidu.com/it/u=781607565,66374776&fm=26&fmt=auto";
+            }
+            template.coverWidth = (arc4random_uniform(100) + 720);
+            template.coverHeight = (arc4random_uniform(300) + 960);
+            template.usageCount = 22;
+            template.likeCount = 6;
+            template.shortTitle = [NSString stringWithFormat:@"砸雪球变身: %d", i];
+            template.title = @"今日份美好 | 文字可更改#日常碎片#";
+            RCTemplateAuthor *author = [RCTemplateAuthor new];
+            author.avatarURL = @"https://img2.baidu.com/it/u=3989200917,112452247&fm=26&fmt=auto";
+            author.name = @"Ahfjinga（手机摄影）";
+            template.author = author;
+            [tempArr addObject:template];
         }
-        template.coverWidth = (arc4random_uniform(100) + 720);
-        template.coverHeight = (arc4random_uniform(300) + 960);
-        template.usageCount = 22;
-        template.likeCount = 6;
-        template.shortTitle = [NSString stringWithFormat:@"砸雪球变身: %d", i];
-        template.title = @"今日份美好 | 文字可更改#日常碎片#";
-        RCTemplateAuthor *author = [RCTemplateAuthor new];
-        author.avatarURL = @"https://img2.baidu.com/it/u=3989200917,112452247&fm=26&fmt=auto";
-        author.name = @"Ahfjinga（手机摄影）";
-        template.author = author;
-        [tempArr addObject:template];
-    }
-    self.templates = tempArr;
+        self.templates = tempArr;
+        
+        int flag = arc4random_uniform(5);
+        if (flag == 0) {
+            self.state = RCTemplatesRequestStateGetTemplatesEndedFailed;
+        } else if (flag == 1) {
+            self.state = RCTemplatesRequestStateGetTemplatesEndedSucceedNoMore;
+        } else {
+            self.state = RCTemplatesRequestStateGetTemplatesEndedSucceedHasMore;
+        }
+    });
 #endif
     return isNetworkAPIEnabled;
 }
