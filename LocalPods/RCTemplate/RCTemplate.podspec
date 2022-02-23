@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'rccrx' => 'rccrx@qq.com' }
   s.source           = { :git => 'https://github.com/rccrx/RCTemplate.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
   s.source_files = 'Classes/**/*'
   s.prefix_header_file = 'Classes/RCTemplate-prefix.pch'
   s.resource_bundles = { 'RCTemplate' => ['Assets/**/*'] }

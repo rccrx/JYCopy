@@ -13,6 +13,7 @@
 #import "RCRefreshAutoCAFooter.h"
 #import "RCTemplateCollectionEmptyView.h"
 #import "RCTemplateCollectionRequestErrorView.h"
+#import "RCTemplateVideoViewController.h"
 
 @interface RCTemplateCollectionViewController () <UICollectionViewDataSource, RCCollectionViewDelegateAdaptiveHeightLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -196,7 +197,7 @@
     }
 }
 
-#pragma mark - UICollectionViewDataSource & RCCollectionViewDelegateAdaptiveHeightLayout
+#pragma mark - UICollectionViewDataSource & RCCollectionViewDelegateAdaptiveHeightLayout & UICollectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.viewModel.templates.count;
 }
@@ -209,6 +210,12 @@
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(RCCollectionViewAdaptiveHeightLayout *)collectionViewLayout heightForItemAtIndexPath:(NSIndexPath *)indexPath {
     return [RCTemplateCollectionViewCell getCellHeightWithData:self.viewModel.templates[indexPath.item] cellWidth:collectionViewLayout.itemWidth];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    RCTemplateVideoViewController *vc = [RCTemplateVideoViewController new];
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.navigationController presentViewController:vc animated:NO completion:nil];
 }
 
 @end
