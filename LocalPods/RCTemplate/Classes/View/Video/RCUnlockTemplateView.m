@@ -51,6 +51,11 @@
     NSString *middleStr = @"  |  ";
     NSString *title = [[NSString alloc] initWithFormat:@"%@%@%@", title1, middleStr, title2];
     NSUInteger frontPartLength = title1.length + middleStr.length;
+    if (title2.length == 0) {
+        title = title1;
+        frontPartLength = title1.length;
+    }
+    
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:title];
     [attrStr addAttributes:@{NSForegroundColorAttributeName: UIColor.rte_colorCDCDCD} range:NSMakeRange(0, frontPartLength)];
     [attrStr addAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor} range:NSMakeRange(frontPartLength, title.length - frontPartLength)];

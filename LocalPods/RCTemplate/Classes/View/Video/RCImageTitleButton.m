@@ -23,7 +23,7 @@
             make.width.height.equalTo(@30); // 之后会被修改
         }];
         
-        self.titleLabel = [UILabel rut_labelWithText:nil textColor:UIColor.whiteColor font:Font_PFSC_R(10) textAlignment:NSTextAlignmentCenter];
+        self.titleLabel = [UILabel rut_labelWithText:nil textColor:UIColor.whiteColor font:Font_PFSC_M(10) textAlignment:NSTextAlignmentCenter];
         [self addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);

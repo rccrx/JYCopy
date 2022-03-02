@@ -48,7 +48,7 @@
 
 #pragma mark - Action
 - (void)backButtonDidClicked:(UIButton *)button {
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource

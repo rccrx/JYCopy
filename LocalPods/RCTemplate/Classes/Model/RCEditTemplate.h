@@ -10,6 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class RCTemplateAuthor;
+@class RCPurchaseInfo;
+@class RCTemplateRelatedTopic;
 
 @interface RCEditTemplate : NSObject
 
@@ -21,6 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *shortTitle;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) RCTemplateAuthor *author;
+@property (nonatomic, copy) NSString *videoURL;
+@property (nonatomic, assign) int64_t duration;
+@property (nonatomic, assign) int64_t commentCount;
+@property (nonatomic, assign) int64_t fragmentCount;
+@property (nonatomic, assign) int64_t replicateWorkCount;
+@property (nonatomic, strong) RCPurchaseInfo *purchaseInfo;
+@property (nonatomic, copy) NSArray<RCTemplateRelatedTopic *> *relatedTopicList;
 
 @end
 
