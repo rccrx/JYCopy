@@ -45,4 +45,12 @@
     return RGBA(0x000000, alpha);
 }
 
++ (UIColor *)rte_colorFCCF14WithAlpha:(CGFloat)alpha {
+    return RGBA(0xFCCF14, alpha);
+}
+
++ (UIColor *)rte_colorFFFFFFWithAlpha:(CGFloat)alpha {
+    return RGBA(0xFFFFFF, alpha);
+}
+
 @end

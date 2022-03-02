@@ -3,6 +3,7 @@
 #import "UIImage+Template.h"
 #import "RCHTTPSessionManager.h"
 #import "RCTemplateNetworkURLDefines.h"
+#import "RCTemplateUtility.h"
 
 // RCUtility
 #import "RCColorMacro.h"

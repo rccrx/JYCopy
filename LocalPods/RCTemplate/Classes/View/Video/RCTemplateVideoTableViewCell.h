@@ -9,7 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCEditTemplate;
+
 @interface RCTemplateVideoTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) RCEditTemplate *data;
 
 @end
 

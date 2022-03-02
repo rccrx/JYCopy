@@ -63,6 +63,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RCTemplateVideoTableViewCell.class)];
     cell.backgroundColor = RGB_DEC(105, 255, (indexPath.row * 100) % 255);
+    cell.data = self.data;
     return cell;
 }
 

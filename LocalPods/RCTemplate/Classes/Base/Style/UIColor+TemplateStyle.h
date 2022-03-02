@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)rte_colorA2A2A2;
 
 + (UIColor *)rte_color000000WithAlpha:(CGFloat)alpha;
++ (UIColor *)rte_colorFCCF14WithAlpha:(CGFloat)alpha;
++ (UIColor *)rte_colorFFFFFFWithAlpha:(CGFloat)alpha;
 
 @end
 

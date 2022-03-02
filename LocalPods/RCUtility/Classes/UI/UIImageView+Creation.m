@@ -24,4 +24,11 @@
     return imageView;
 }
 
++ (instancetype)rut_imageViewWithCornerRadius:(CGFloat)cornerRadius contentMode:(UIViewContentMode)contentMode backgroundColor:(UIColor *)backgroundColor borderWidth:(CGFloat)borderWidth borderColor:(CGColorRef)borderColor {
+    UIImageView *imageView = [self rut_imageViewWithCornerRadius:cornerRadius contentMode:contentMode backgroundColor:backgroundColor];
+    imageView.layer.borderWidth = borderWidth;
+    imageView.layer.borderColor = borderColor;
+    return imageView;
+}
+
 @end

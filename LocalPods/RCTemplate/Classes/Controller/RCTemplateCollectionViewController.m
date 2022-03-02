@@ -215,6 +215,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoViewController *vc = [RCTemplateVideoViewController new];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    vc.data = self.viewModel.templates[indexPath.item];
     [self.navigationController presentViewController:vc animated:NO completion:nil];
 }
 
