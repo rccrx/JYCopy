@@ -8,6 +8,8 @@
 #import "RCTemplateCollectionViewModel.h"
 #import "RCEditTemplate.h"
 #import "RCTemplateAuthor.h"
+#import "RCPurchaseInfo.h"
+#import "RCTemplateRelatedTopic.h"
 
 @interface RCTemplateCollectionViewModel ()
 /*--------------- 重复头文件的readonly属性声明，为了自动添加Setter方法 ---------------*/
@@ -142,6 +144,18 @@
             author.avatarURL = @"https://img2.baidu.com/it/u=3989200917,112452247&fm=26&fmt=auto";
             author.name = @"Ahfjinga（手机摄影）";
             template.author = author;
+            template.videoURL = @"https://vd2.bdstatic.com/mda-jk1daq6ynn4gak8d/mda-jk1daq6ynn4gak8d.mp4";
+            template.duration = 8765;
+            template.commentCount = 1234567;
+            template.fragmentCount = 1;
+            template.replicateWorkCount = 81;
+            RCPurchaseInfo *purchaseInfo = [RCPurchaseInfo new];
+            purchaseInfo.amount = 300;
+            purchaseInfo.needPurchase = YES;
+            template.purchaseInfo = purchaseInfo;
+            RCTemplateRelatedTopic *relatedTopic = [RCTemplateRelatedTopic new];
+            relatedTopic.shortTitle = @"记录春节假期";
+            template.relatedTopicList = @[relatedTopic];
             [tempArr addObject:template];
         }
         self.templates = tempArr;

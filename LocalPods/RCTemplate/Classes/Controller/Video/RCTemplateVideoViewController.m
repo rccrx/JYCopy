@@ -25,6 +25,7 @@
     self.view.backgroundColor = UIColor.blackColor;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView.backgroundColor = UIColor.blackColor;
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -62,7 +63,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RCTemplateVideoTableViewCell.class)];
-    cell.backgroundColor = RGB_DEC(105, 255, (indexPath.row * 100) % 255);
     cell.data = self.datas[indexPath.row];
     return cell;
 }

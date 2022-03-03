@@ -45,6 +45,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.contentView.backgroundColor = UIColor.blackColor;
         
         self.coverImageView = [UIImageView rut_imageViewWithContentMode:UIViewContentModeScaleAspectFit backgroundColor:UIColor.blackColor];
         [self.contentView addSubview:self.coverImageView];
@@ -176,6 +177,7 @@
     
     // 设置显示数据
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:self.data.coverURL]];
+    self.coverImageView.hidden = NO;
     
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.data.author.avatarURL]];
     [self.likeButton setTitle:[RCTemplateUtility getTenThousandStringWithNumber:self.data.likeCount]];
@@ -270,6 +272,7 @@
         [MBProgressHUD hideLoadingHUDForView:self.playerView animated:NO];
         AVPlayerItemStatus status = [change[NSKeyValueChangeNewKey] integerValue];
         if (status == AVPlayerItemStatusReadyToPlay) {
+            self.coverImageView.hidden = YES;
             UITableView *tableView = (UITableView *)self.superview;
             NSArray<UITableViewCell *> *visCells = [tableView visibleCells];
             if ([visCells containsObject:self]) {
