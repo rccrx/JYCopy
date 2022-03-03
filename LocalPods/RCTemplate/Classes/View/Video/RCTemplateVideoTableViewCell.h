@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) RCEditTemplate *data;
 
+- (void)playVideo;
+- (void)pauseVideo;
+
 @end
 
 NS_ASSUME_NONNULL_END

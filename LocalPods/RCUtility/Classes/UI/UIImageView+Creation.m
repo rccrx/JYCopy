@@ -15,6 +15,13 @@
     return imageView;
 }
 
++ (instancetype)rut_imageViewWithContentMode:(UIViewContentMode)contentMode backgroundColor:(UIColor *)backgroundColor {
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.contentMode = contentMode;
+    imageView.backgroundColor = backgroundColor;
+    return imageView;
+}
+
 + (instancetype)rut_imageViewWithCornerRadius:(CGFloat)cornerRadius contentMode:(UIViewContentMode)contentMode backgroundColor:(UIColor *)backgroundColor {
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.layer.cornerRadius = cornerRadius;

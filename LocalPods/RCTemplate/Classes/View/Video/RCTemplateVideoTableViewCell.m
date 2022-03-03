@@ -13,6 +13,7 @@
 #import "RCImageTitleButton.h"
 #import "RCTemplateRelatedTopic.h"
 #import "RCPurchaseInfo.h"
+#import <AVFoundation/AVFoundation.h>
 
 #define MarginLeft 15
 #define TitleTagToUse 10
@@ -22,6 +23,7 @@
 
 @interface RCTemplateVideoTableViewCell ()
 
+@property (nonatomic, strong) UIImageView *coverImageView;
 @property (nonatomic, strong) RCPlayerView *playerView;
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UIButton *addButton;
@@ -44,8 +46,14 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        self.coverImageView = [UIImageView rut_imageViewWithContentMode:UIViewContentModeScaleAspectFit backgroundColor:UIColor.blackColor];
+        [self.contentView addSubview:self.coverImageView];
+        [self.coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.bottom.equalTo(self.contentView);
+        }];
+        
         self.playerView = [RCPlayerView new];
-        self.playerView.backgroundColor = UIColor.blackColor;
+        self.playerView.player = [[AVPlayer alloc] init];
         [self.contentView addSubview:self.playerView];
         [self.playerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.bottom.equalTo(self.contentView);
@@ -167,6 +175,8 @@
     _data = data;
     
     // 设置显示数据
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:self.data.coverURL]];
+    
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.data.author.avatarURL]];
     [self.likeButton setTitle:[RCTemplateUtility getTenThousandStringWithNumber:self.data.likeCount]];
     [self.commentButton setTitle:[RCTemplateUtility getTenThousandStringWithNumber:self.data.commentCount]];
@@ -248,6 +258,37 @@
 
 - (void)collegeButtonDidClicked:(UIButton *)button {
     
+}
+
+#pragma mark - Observer
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object != self.playerView.player.currentItem) {
+        return;
+    }
+    
+    if ([keyPath isEqualToString:@"status"]) {
+        [MBProgressHUD hideLoadingHUDForView:self.playerView animated:NO];
+        AVPlayerItemStatus status = [change[NSKeyValueChangeNewKey] integerValue];
+        if (status == AVPlayerItemStatusReadyToPlay) {
+            UITableView *tableView = (UITableView *)self.superview;
+            NSArray<UITableViewCell *> *visCells = [tableView visibleCells];
+            if ([visCells containsObject:self]) {
+                [self.playerView.player play];
+            }
+        }
+    }
+}
+
+#pragma mark - Public
+- (void)playVideo {
+    AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:self.data.videoURL]];
+    [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    [self.playerView.player replaceCurrentItemWithPlayerItem:playerItem];
+    [MBProgressHUD showLoadingHUDAddedTo:self.playerView animated:NO];
+}
+
+- (void)pauseVideo {
+    [self.playerView.player pause];
 }
 
 @end

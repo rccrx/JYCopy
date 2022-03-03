@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)rut_imageViewWithImage:(UIImage *)image contentMode:(UIViewContentMode)contentMode;
 
++ (instancetype)rut_imageViewWithContentMode:(UIViewContentMode)contentMode backgroundColor:(nullable UIColor *)backgroundColor;
+
 + (instancetype)rut_imageViewWithCornerRadius:(CGFloat)cornerRadius contentMode:(UIViewContentMode)contentMode backgroundColor:(UIColor *)backgroundColor;
 
 + (instancetype)rut_imageViewWithCornerRadius:(CGFloat)cornerRadius contentMode:(UIViewContentMode)contentMode backgroundColor:(UIColor *)backgroundColor borderWidth:(CGFloat)borderWidth borderColor:(CGColorRef)borderColor;

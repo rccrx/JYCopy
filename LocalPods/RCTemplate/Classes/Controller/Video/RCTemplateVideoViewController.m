@@ -53,7 +53,7 @@
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.datas.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -63,8 +63,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RCTemplateVideoTableViewCell.class)];
     cell.backgroundColor = RGB_DEC(105, 255, (indexPath.row * 100) % 255);
-    cell.data = self.data;
+    cell.data = self.datas[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    RCTemplateVideoTableViewCell *tvCell = (RCTemplateVideoTableViewCell *)cell;
+    [tvCell playVideo];
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    RCTemplateVideoTableViewCell *tvCell = (RCTemplateVideoTableViewCell *)cell;
+    [tvCell pauseVideo];
 }
 
 @end
