@@ -21,6 +21,15 @@
     [self setupUI];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // 由于视频的播放启动由scrollViewDidEndDecelerating控制，而第一个显示的cell不调用这个方法，所以使用另外的方式启动第一个显示cell的播放
+    if (self.tableView.visibleCells.count > 0) { // 正常情况下是1
+        RCTemplateVideoTableViewCell *cell = self.tableView.visibleCells[0];
+        [cell playVideo];
+    }
+}
+
 - (void)setupUI {
     self.view.backgroundColor = UIColor.blackColor;
     
@@ -33,6 +42,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.pagingEnabled = YES;
+    self.tableView.estimatedRowHeight = ScreenHeight; // 避免一开始显示时调用过多的cellForRowAtIndexPath
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self.view);
@@ -67,14 +77,17 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    RCTemplateVideoTableViewCell *tvCell = (RCTemplateVideoTableViewCell *)cell;
-    [tvCell playVideo];
-}
-
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoTableViewCell *tvCell = (RCTemplateVideoTableViewCell *)cell;
     [tvCell pauseVideo];
+}
+
+// 刚显示页面时不会调用这个协议方法，所以第一个显示的cell使用另外的方法启动播放
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (self.tableView.visibleCells.count > 0) { // 正常情况下是1
+        RCTemplateVideoTableViewCell *cell = self.tableView.visibleCells[0];
+        [cell playVideo];
+    }
 }
 
 @end

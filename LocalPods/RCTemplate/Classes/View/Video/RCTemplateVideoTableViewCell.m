@@ -54,7 +54,6 @@
         }];
         
         self.playerView = [RCPlayerView new];
-        self.playerView.player = [[AVPlayer alloc] init];
         [self.contentView addSubview:self.playerView];
         [self.playerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.bottom.equalTo(self.contentView);
@@ -176,8 +175,9 @@
     _data = data;
     
     // 设置显示数据
+    self.coverImageView.image = nil;
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:self.data.coverURL]];
-    self.coverImageView.hidden = NO;
+    [self showPlayerViewOrCoverImageView:NO];
     
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.data.author.avatarURL]];
     [self.likeButton setTitle:[RCTemplateUtility getTenThousandStringWithNumber:self.data.likeCount]];
@@ -262,32 +262,43 @@
     
 }
 
+#pragma mark - Private
+/** 传入参数YES则显示PlayerView隐藏CoverImageView，NO则隐藏PlayerView显示CoverImageView */
+- (void)showPlayerViewOrCoverImageView:(BOOL)shouldShowPlayerView {
+    self.playerView.hidden = !shouldShowPlayerView; // playerView在可以播放之前先隐藏，否则会因为复用问题显示上次视频截图
+    self.coverImageView.hidden = shouldShowPlayerView;
+}
+
 #pragma mark - Observer
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (object != self.playerView.player.currentItem) {
+    if (object != self.playerView.player) {
         return;
     }
     
     if ([keyPath isEqualToString:@"status"]) {
-        [MBProgressHUD hideLoadingHUDForView:self.playerView animated:NO];
-        AVPlayerItemStatus status = [change[NSKeyValueChangeNewKey] integerValue];
-        if (status == AVPlayerItemStatusReadyToPlay) {
-            self.coverImageView.hidden = YES;
-            UITableView *tableView = (UITableView *)self.superview;
-            NSArray<UITableViewCell *> *visCells = [tableView visibleCells];
-            if ([visCells containsObject:self]) {
-                [self.playerView.player play];
-            }
+        [MBProgressHUD hideLoadingHUDForView:self.coverImageView animated:NO];
+        AVPlayerStatus status = [change[NSKeyValueChangeNewKey] integerValue];
+        if (status == AVPlayerStatusReadyToPlay) {
+            [self showPlayerViewOrCoverImageView:YES];
+            [self.playerView.player play];
         }
     }
 }
 
 #pragma mark - Public
 - (void)playVideo {
-    AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:self.data.videoURL]];
-    [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-    [self.playerView.player replaceCurrentItemWithPlayerItem:playerItem];
-    [MBProgressHUD showLoadingHUDAddedTo:self.playerView animated:NO];
+    if (self.playerView.player.rate != 0) {
+        return;
+    }
+    
+    [self.playerView.player removeObserver:self forKeyPath:@"status"];
+    
+    AVPlayer *player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:self.data.videoURL]];
+    player.automaticallyWaitsToMinimizeStalling = NO;
+    self.playerView.player = player;
+    [self.playerView.player addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    
+    [MBProgressHUD showLoadingHUDAddedTo:self.coverImageView animated:NO];
 }
 
 - (void)pauseVideo {
