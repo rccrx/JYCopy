@@ -17,6 +17,12 @@
 
 @implementation RCTemplateVideoViewController
 
+#pragma mark - Override
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -72,7 +78,6 @@
 #pragma mark - Action
 - (void)backButtonDidClicked:(UIButton *)button {
     [self.sourceController scrollToSelectedItemIfNeeded];
-    [self.sourceController showStatusBar];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

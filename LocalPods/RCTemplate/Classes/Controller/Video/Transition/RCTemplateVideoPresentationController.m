@@ -31,6 +31,11 @@
 //    return YES;
 //}
 
+// 这个方法重写返回NO，则状态栏的隐藏可以由presentedVC的prefersStatusBarHidden控制
+- (BOOL)shouldPresentInFullscreen {
+    return NO;
+}
+
 - (void)presentationTransitionWillBegin {
     UIImage *coverImage = [self.sourceController getSelectedItemCoverImage];
     CGRect coverFrame = [self.sourceController getSelectedItemCoverFrame];
@@ -57,7 +62,11 @@
 - (void)dismissalTransitionWillBegin {
     UIImage *coverImage = [self.sourceController getSelectedItemCoverImage];
     CGRect coverFrame = [self.sourceController getSelectedItemCoverFrame];
+    
+    [self.containerView addSubview:self.dimmingView]; // 当shouldRemovePresentersView返回YES，在dismissal中要再执行一次addSubview
+    
     self.coverImageView.image = coverImage;
+    [self.containerView addSubview:self.coverImageView];
     
     id<UIViewControllerTransitionCoordinator> transitionCoordinator = self.presentingViewController.transitionCoordinator;
     self.dimmingView.alpha = 1;

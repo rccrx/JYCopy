@@ -20,15 +20,9 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) RCTemplateCollectionEmptyView *emptyView;
 @property (nonatomic, strong) RCTemplateCollectionRequestErrorView *requestErrorView;
-@property (nonatomic, assign) BOOL isStatusBarHidden;
 @end
 
 @implementation RCTemplateCollectionViewController
-
-#pragma mark - Override
-- (BOOL)prefersStatusBarHidden {
-    return self.isStatusBarHidden;
-}
 
 #pragma mark - Life Cycle & UI
 - (instancetype)init {
@@ -226,7 +220,6 @@
     vc.sourceController = self;
     
     [self.viewModel recordSelectedIndex:indexPath.item];
-    self.isStatusBarHidden = YES;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -254,10 +247,6 @@
 - (UIImage *)getSelectedItemCoverImage {
     RCTemplateCollectionViewCell *cell = (RCTemplateCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[self.viewModel getLastRecordedSelectedIndex] inSection:0]];
     return cell.coverImageView.image;
-}
-
-- (void)showStatusBar {
-    self.isStatusBarHidden = NO;
 }
 
 @end
