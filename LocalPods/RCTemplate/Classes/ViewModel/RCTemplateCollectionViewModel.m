@@ -16,10 +16,13 @@
 @property (nonatomic, copy) NSArray<RCEditTemplate *> *templates;
 @property (nonatomic, strong) NSError *error;
 @property (nonatomic, assign) RCTemplatesRequestState state;
+
+@property (nonatomic, assign) NSUInteger selectedIndex;
 @end
 
 @implementation RCTemplateCollectionViewModel
 
+#pragma mark - Life Cycle
 - (instancetype)init {
     if (self = [super init]) {
         self.templates = @[];
@@ -27,6 +30,7 @@
     return self;
 }
 
+#pragma mark - Public
 - (void)getTemplatesForCurrentCollectionId {
 #if 1//测试
     if (![self isNetworkAPIEnabledAndThenSetFakeDataIfNot]) return; // 没有接口时显示测试数据
@@ -98,6 +102,13 @@
     }];
 }
 
+- (void)recordSelectedIndex:(NSUInteger)index {
+    self.selectedIndex = index;
+}
+
+- (NSUInteger)getLastRecordedSelectedIndex {
+    return self.selectedIndex;
+}
 
 
 

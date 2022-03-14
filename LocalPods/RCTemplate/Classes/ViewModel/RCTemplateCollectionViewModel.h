@@ -40,6 +40,9 @@ typedef NS_ENUM(NSInteger, RCTemplatesRequestState) {
 - (void)getTemplatesForCurrentCollectionId;
 - (void)loadMoreTemplates;
 
+- (void)recordSelectedIndex:(NSUInteger)index;
+- (NSUInteger)getLastRecordedSelectedIndex;
+
 @end
 
 NS_ASSUME_NONNULL_END

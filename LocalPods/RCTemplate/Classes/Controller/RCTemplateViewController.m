@@ -25,6 +25,12 @@
 
 @implementation RCTemplateViewController
 
+#pragma mark - Override
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.childViewControllers.lastObject;
+}
+
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupData];

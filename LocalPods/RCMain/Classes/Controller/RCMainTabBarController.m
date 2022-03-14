@@ -11,6 +11,7 @@
 
 @implementation RCMainTabBarController
 
+#pragma mark - Life Cycle
 - (instancetype)init {
     if (self = [super init]) {
         RCTabBarButton *itm1 = [[RCTabBarButton alloc]
@@ -70,6 +71,8 @@
         self.viewControllers = @[vc2, templateNav, vc3];
         [self updateViewsBottomMargin:-60];
         self.selectedIndex = 1;
+        
+        self.delegate = self;
     }
     return self;
 }
@@ -79,8 +82,27 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - Status Bar
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
+// 这个方法，屏幕任何地方被点击都会触发
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    if ([self.selectedViewController isKindOfClass:UINavigationController.class]) {
+        UINavigationController *selectedNav = (UINavigationController *)self.selectedViewController;
+        return selectedNav.topViewController;
+    }
+    return nil;
+}
+
+#pragma mark - RCTabBarControllerDelegate
+- (void)tabBarController:(RCTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

@@ -14,14 +14,21 @@
 #import "RCTemplateCollectionEmptyView.h"
 #import "RCTemplateCollectionRequestErrorView.h"
 #import "RCTemplateVideoViewController.h"
+#import "RCTemplateVideoPresentationController.h"
 
-@interface RCTemplateCollectionViewController () <UICollectionViewDataSource, RCCollectionViewDelegateAdaptiveHeightLayout>
+@interface RCTemplateCollectionViewController () <UICollectionViewDataSource, RCCollectionViewDelegateAdaptiveHeightLayout, UIViewControllerTransitioningDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) RCTemplateCollectionEmptyView *emptyView;
 @property (nonatomic, strong) RCTemplateCollectionRequestErrorView *requestErrorView;
+@property (nonatomic, assign) BOOL isStatusBarHidden;
 @end
 
 @implementation RCTemplateCollectionViewController
+
+#pragma mark - Override
+- (BOOL)prefersStatusBarHidden {
+    return self.isStatusBarHidden;
+}
 
 #pragma mark - Life Cycle & UI
 - (instancetype)init {
@@ -214,9 +221,43 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoViewController *vc = [RCTemplateVideoViewController new];
-    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    vc.datas = self.viewModel.templates;
-    [self.navigationController presentViewController:vc animated:NO completion:nil];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.transitioningDelegate = self;
+    vc.sourceController = self;
+    
+    [self.viewModel recordSelectedIndex:indexPath.item];
+    self.isStatusBarHidden = YES;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
+    RCTemplateVideoPresentationController *presentationCtr = [[RCTemplateVideoPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+    presentationCtr.sourceController = self;
+    return presentationCtr;
+}
+
+#pragma mark - Public
+- (void)scrollToSelectedItemIfNeeded {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.viewModel getLastRecordedSelectedIndex] inSection:0];
+    if (![self.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    }
+}
+
+- (CGRect)getSelectedItemCoverFrame {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.viewModel getLastRecordedSelectedIndex] inSection:0];
+    RCTemplateCollectionViewCell *cell = (RCTemplateCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath]; // iOS15之前，当cell不可见时，cellForItemAtIndexPath返回nil
+    return [cell convertRect:cell.coverImageView.frame toView:[UIApplication sharedApplication].keyWindow]; // toView不能传入nil，会导致有时cell的origin为0（也许是因为没有父视图）
+}
+
+- (UIImage *)getSelectedItemCoverImage {
+    RCTemplateCollectionViewCell *cell = (RCTemplateCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[self.viewModel getLastRecordedSelectedIndex] inSection:0]];
+    return cell.coverImageView.image;
+}
+
+- (void)showStatusBar {
+    self.isStatusBarHidden = NO;
 }
 
 @end

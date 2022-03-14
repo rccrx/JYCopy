@@ -7,6 +7,8 @@
 
 #import "RCTemplateVideoViewController.h"
 #import "RCTemplateVideoTableViewCell.h"
+#import "RCTemplateCollectionViewModel.h"
+#import "RCTemplateCollectionViewController.h"
 
 @interface RCTemplateVideoViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -27,6 +29,16 @@
     if (self.tableView.visibleCells.count > 0) { // 正常情况下是1
         RCTemplateVideoTableViewCell *cell = self.tableView.visibleCells[0];
         [cell playVideo];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSUInteger index = [self.sourceController.viewModel getLastRecordedSelectedIndex];
+    if (index != 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
 }
 
@@ -59,12 +71,14 @@
 
 #pragma mark - Action
 - (void)backButtonDidClicked:(UIButton *)button {
+    [self.sourceController scrollToSelectedItemIfNeeded];
+    [self.sourceController showStatusBar];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.datas.count;
+    return self.sourceController.viewModel.templates.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -73,7 +87,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RCTemplateVideoTableViewCell.class)];
-    cell.data = self.datas[indexPath.row];
+    cell.data = self.sourceController.viewModel.templates[indexPath.row];
     return cell;
 }
 
@@ -87,6 +101,8 @@
     if (self.tableView.visibleCells.count > 0) { // 正常情况下是1
         RCTemplateVideoTableViewCell *cell = self.tableView.visibleCells[0];
         [cell playVideo];
+        
+        [self.sourceController.viewModel recordSelectedIndex:[self.tableView indexPathForCell:cell].row];
     }
 }
 

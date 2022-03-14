@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCTemplateCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) RCEditTemplate *data;
+@property (nonatomic, strong, readonly) UIImageView *coverImageView;
 
 + (CGFloat)getCellHeightWithData:(RCEditTemplate *)data cellWidth:(CGFloat)cellWidth;
 
