@@ -22,20 +22,16 @@
     return YES;
 }
 
-#pragma mark - Life Cycle
+#pragma mark - Life Cycle & UI
+- (void)dealloc {
+    [self removeObservers];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setupUI];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    // 由于视频的播放启动由scrollViewDidEndDecelerating控制，而第一个显示的cell不调用这个方法，所以使用另外的方式启动第一个显示cell的播放
-    if (self.tableView.visibleCells.count > 0) { // 正常情况下是1
-        RCTemplateVideoTableViewCell *cell = self.tableView.visibleCells[0];
-        [cell playVideo];
-    }
+    [self addObservers];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,6 +41,15 @@
     if (index != 0) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // 由于视频的播放启动由scrollViewDidEndDecelerating控制，而第一个显示的cell不调用这个方法，所以使用另外的方式启动第一个显示cell的播放
+    if (self.tableView.visibleCells.count > 0) { // 正常情况下是1
+        RCTemplateVideoTableViewCell *cell = self.tableView.visibleCells[0];
+        [cell playVideo];
     }
 }
 
@@ -81,6 +86,25 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Observer
+- (void)addObservers {
+    [self.sourceController.viewModel addObserver:self forKeyPath:@"templates" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)removeObservers {
+    [self.sourceController.viewModel removeObserver:self forKeyPath:@"templates" context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object != self.sourceController.viewModel) {
+        return;
+    }
+    
+    if ([keyPath isEqualToString:@"templates"]) {
+        [self.tableView reloadData];
+    }
+}
+
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.sourceController.viewModel.templates.count;
@@ -93,6 +117,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCTemplateVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RCTemplateVideoTableViewCell.class)];
     cell.data = self.sourceController.viewModel.templates[indexPath.row];
+    if (indexPath.row >= self.sourceController.viewModel.templates.count - 2) {
+        [self.sourceController.viewModel loadMoreTemplates];
+    }
     return cell;
 }
 
